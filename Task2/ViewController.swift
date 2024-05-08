@@ -16,11 +16,12 @@ final class ViewController: UIViewController {
         
         Task {
             do {
-                async let studies = self.viewModel.requestStudyList()
-                async let series = self.viewModel.requestSeries(of: "1")
+                let studies = try await self.viewModel.requestStudyList()
+                async let series = self.viewModel.requestDicomSeriesOfStudyList(studies)
                 
-                print(try await studies)
-                print("================")
+                /// `Study list` 와 각  `Study`에 속한 `Series` 정보 출력
+                print(studies)
+                print("================================")
                 print(try await series)
             }
             catch {
