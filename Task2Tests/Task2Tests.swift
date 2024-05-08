@@ -10,6 +10,7 @@ import XCTest
 
 final class Task2Tests: XCTestCase {
     private var dicomStudyRequest: NetworkRequest!
+    private var dicomStudyRequestWithQueryItems: NetworkRequest!
     private var dicomSeriesRequest: NetworkRequest!
     private var networkService: DefaultNetworkService!
     
@@ -19,6 +20,12 @@ final class Task2Tests: XCTestCase {
             resource: .dicom,
             endpoint: .study
         )
+        
+        self.dicomStudyRequestWithQueryItems = NetworkRequest(
+            httpMethod: .get,
+            resource: .dicom,
+            endpoint: .study,
+            queryItems: [URLQueryItem(name: "filter", value: "head")])
         
         self.dicomSeriesRequest = NetworkRequest(
             httpMethod: .get,
@@ -35,9 +42,13 @@ final class Task2Tests: XCTestCase {
     }
 
     func testNetWorkRequest_urlString_shouldReturnTrue() throws {
-        let urlString = "http://10.10.20.102:6080/v2/Dicom/Study"
+        let urlStringWithNoQueryItem = "http://10.10.20.102:6080/v2/Dicom/Study"
         XCTAssertNotNil(self.dicomStudyRequest.url)
-        XCTAssertTrue(URL(string: urlString) == self.dicomStudyRequest.url)
+        XCTAssertTrue(URL(string: urlStringWithNoQueryItem) == self.dicomStudyRequest.url)
+        
+        let urlStringWithQueryItem = "http://10.10.20.102:6080/v2/Dicom/Study?filter=head"
+        XCTAssertNotNil(self.dicomStudyRequestWithQueryItems.url)
+        XCTAssertTrue(URL(string: urlStringWithQueryItem) == self.dicomStudyRequestWithQueryItems.url)
     }
 
     func testNetworkService_execute_shouldReturnTrue() async throws {

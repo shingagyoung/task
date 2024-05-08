@@ -17,12 +17,12 @@ final class MainViewController: UIViewController {
         Task {
             do {
                 let studies = try await self.viewModel.requestStudyList()
-                async let series = self.viewModel.requestDicomSeriesOfStudyList(studies)
+                let series = try await self.viewModel.requestDicomSeriesOfStudyList(studies)
                 
                 /// `Study list` 와 각  `Study`에 속한 `Series` 정보 출력
                 print(studies)
                 print("================================")
-                print(try await series)
+                print(series)
             }
             catch {
                 print("Error -- \(error)")

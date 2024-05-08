@@ -24,39 +24,42 @@ final class NetworkRequest {
     let httpMethod: HTTPMethod
     private let resource: APIResource
     private let endpoint: EndPoint
-    private let pathComponents: [String]?
+    private let pathComponents: [String]
+    private let queryItems: [URLQueryItem]
     
-    private var urlString: String {
-        var urlStr = AppConstants.baseUrl
-        urlStr += "/"
-        urlStr += resource.rawValue
-        urlStr += "/"
-        urlStr += endpoint.rawValue
+    private var urlString: URLComponents? {
         
-        if let components = self.pathComponents {
-            if !components.isEmpty {
-                components.forEach {
-                    urlStr += "/"
-                    urlStr += $0
-                }
+        var urlComponents = URLComponents(string: AppConstants.baseUrl)
+        urlComponents?.path.append("/\(resource.rawValue)")
+        urlComponents?.path.append("/\(endpoint.rawValue)")
+
+        if !pathComponents.isEmpty {
+            pathComponents.forEach {
+                urlComponents?.path.append("/\($0)")
             }
         }
         
-        return urlStr
+        if !queryItems.isEmpty {
+            urlComponents?.queryItems = self.queryItems
+        }
+        
+        return urlComponents
     }
     
     var url: URL? {
-        return URL(string: self.urlString)
+        return self.urlString?.url
     }
     
     init(httpMethod: HTTPMethod,
          resource: APIResource,
          endpoint: EndPoint,
-         pathComponents: [String]? = nil) {
+         pathComponents: [String] = [],
+         queryItems: [URLQueryItem] = []) {
         self.httpMethod = httpMethod
         self.resource = resource
         self.endpoint = endpoint
         self.pathComponents = pathComponents
+        self.queryItems = queryItems
     }
     
 }

@@ -12,7 +12,7 @@ protocol NetworkService {
     func request(from networkRequest: NetworkRequest) -> URLRequest?
 }
 
-final class DefaultNetworkService {
+final class DefaultNetworkService: NetworkService {
     
     func execute<T:Decodable>(_ request: NetworkRequest) async throws -> T {
         guard let urlRequest = self.request(from: request) else {
