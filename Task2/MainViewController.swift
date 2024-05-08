@@ -9,6 +9,10 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var resultTableView: UITableView!
+    
     private let viewModel: MainViewModel = MainViewModel()
     
     override func viewDidLoad() {
@@ -30,6 +34,9 @@ final class MainViewController: UIViewController {
         }
     }
 
-
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        
+    }
+    
 }
 

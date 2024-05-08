@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,16 +16,56 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oT0-tF-dbs">
+                                <rect key="frame" x="0.0" y="122" width="393" height="696"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="separatorColor" name="AccentColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QjZ-mY-goR">
+                                <rect key="frame" x="295" y="79" width="78" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Search"/>
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GhD-xE-276"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N7a-9v-oyB">
+                                <rect key="frame" x="20" y="79" width="255" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QjZ-mY-goR" secondAttribute="trailing" constant="20" id="5MU-Bw-cdi"/>
+                            <constraint firstItem="QjZ-mY-goR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="7zb-dQ-yLw"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="top" secondItem="QjZ-mY-goR" secondAttribute="bottom" constant="8" symbolic="YES" id="Bnb-RQ-Ed8"/>
+                            <constraint firstItem="N7a-9v-oyB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Pwz-Uc-P9a"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TIF-qe-4u0"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="blB-NM-VjY"/>
+                            <constraint firstItem="QjZ-mY-goR" firstAttribute="leading" secondItem="N7a-9v-oyB" secondAttribute="trailing" constant="20" id="otc-48-diq"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="top" secondItem="N7a-9v-oyB" secondAttribute="bottom" constant="8" symbolic="YES" id="qXA-SK-Rfp"/>
+                            <constraint firstItem="N7a-9v-oyB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="xAo-aU-77u"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="xE0-gG-MBs"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="resultTableView" destination="oT0-tF-dbs" id="OPh-3g-N72"/>
+                        <outlet property="searchButton" destination="QjZ-mY-goR" id="MiA-oY-gOG"/>
+                        <outlet property="searchTextField" destination="N7a-9v-oyB" id="Utu-T7-768"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="-2"/>
+            <point key="canvasLocation" x="139.69465648854961" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -55,3 +55,10 @@ struct MainViewModel {
         }
     }
 }
+
+extension MainViewModel {
+    func numberOfItems() -> Int {
+        return 0
+    }
+    
+}
