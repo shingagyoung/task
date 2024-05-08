@@ -14,10 +14,10 @@ struct Series: Decodable {
     let seriesInstanceUID: String
     let seriesNumber: String
     let modality: String
-    let seriesDateTime: Date
+    let seriesDateTime: String
     let patientPosition: String
     let acquisitionNumber: String
-    let scanningSequence: String
+    let scanningSequence: String?
     let bodyPartExamined: String
     let seriesDescription: String
     let rows: String
@@ -27,10 +27,10 @@ struct Series: Decodable {
     let imageType: String
     let imageOrientationPatient: String
     let numberOfDicomFiles: Int
-    let createdDateTime: Date
-    let lastModifiedDateTime: Date
+    let createdDateTime: String
+    let lastModifiedDateTime: String
     let volumeFilePath: String
-    let tag: String
-    let memo: String
+    let tag: String?
+    let memo: String?
     
 }
