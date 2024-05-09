@@ -40,15 +40,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QjZ-mY-goR" secondAttribute="trailing" constant="20" id="5MU-Bw-cdi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oT0-tF-dbs" secondAttribute="trailing" id="6Za-5c-zCG"/>
                             <constraint firstItem="QjZ-mY-goR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="7zb-dQ-yLw"/>
                             <constraint firstItem="oT0-tF-dbs" firstAttribute="top" secondItem="QjZ-mY-goR" secondAttribute="bottom" constant="8" symbolic="YES" id="Bnb-RQ-Ed8"/>
                             <constraint firstItem="N7a-9v-oyB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Pwz-Uc-P9a"/>
-                            <constraint firstItem="oT0-tF-dbs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TIF-qe-4u0"/>
+                            <constraint firstItem="oT0-tF-dbs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="b2e-6T-Xlf"/>
                             <constraint firstItem="oT0-tF-dbs" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="blB-NM-VjY"/>
                             <constraint firstItem="QjZ-mY-goR" firstAttribute="leading" secondItem="N7a-9v-oyB" secondAttribute="trailing" constant="20" id="otc-48-diq"/>
                             <constraint firstItem="oT0-tF-dbs" firstAttribute="top" secondItem="N7a-9v-oyB" secondAttribute="bottom" constant="8" symbolic="YES" id="qXA-SK-Rfp"/>
                             <constraint firstItem="N7a-9v-oyB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="xAo-aU-77u"/>
-                            <constraint firstItem="oT0-tF-dbs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="xE0-gG-MBs"/>
                         </constraints>
                     </view>
                     <connections>

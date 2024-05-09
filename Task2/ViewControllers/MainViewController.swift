@@ -48,13 +48,43 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.viewModel.numberOfRows(at: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DicomTableViewCell", for: indexPath) as? DicomTableViewCell else { fatalError() }
         
-        cell.configure(with: self.viewModel.cellItem(at: indexPath))
+        cell.configure(with: self.viewModel.cellItem(at: indexPath.section))
+        
+        //TODO: Series Cell 추가하기
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var rowItem = self.viewModel.cellItem(at: indexPath.section)
+        rowItem.isExpanded.toggle()
+        
+        if rowItem.isExpanded {
+            Task {
+                do {
+                    let seriesList = try await self.viewModel.requestSeries(of:"\(rowItem.study.id)")
+                    rowItem.seriesList = seriesList
+                    
+                    self.resultTableView.reloadSections(
+                        [indexPath.section],
+                        with: .automatic
+                    )
+                }
+                catch {
+                    print("Error -- \(error.localizedDescription)")
+                }
+            }
+        } else {
+            self.resultTableView.reloadSections(
+                [indexPath.section],
+                with: .automatic
+            )
+        }
     }
 }

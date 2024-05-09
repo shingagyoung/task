@@ -7,8 +7,16 @@
 
 import Foundation
 
-struct StudySection {
+final class StudySection {
     var study: Study
-    var seriesList: [Series] = []
-    var isExpanded: Bool = false
+    var seriesList: [Series]
+    var isExpanded: Bool
+    
+    init(study: Study,
+         seriesList: [Series] = [],
+         isExpanded: Bool = false) {
+        self.study = study
+        self.seriesList = seriesList
+        self.isExpanded = isExpanded
+    }
 }

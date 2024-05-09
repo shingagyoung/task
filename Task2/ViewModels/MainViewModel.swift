@@ -26,12 +26,12 @@ extension MainViewModel {
         return self.studySections.count
     }
     
-    func numberOfRows() -> Int {
-        return self.studyList.count
+    func numberOfRows(at section: Int) -> Int {
+        return studySections[section].isExpanded ? studySections[section].seriesList.count+1 : 1
     }
     
-    func cellItem(at indexPath: IndexPath) -> StudySection {
-        return self.studySections[indexPath.section]
+    func cellItem(at section: Int) -> StudySection {
+        return self.studySections[section]
     }
 }
 
