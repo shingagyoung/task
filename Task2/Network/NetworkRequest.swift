@@ -22,16 +22,29 @@ enum HTTPMethod: String {
 
 final class NetworkRequest {
     let httpMethod: HTTPMethod
-    private let resource: APIResource
-    private let endpoint: EndPoint
-    private let pathComponents: [String]
-    private let queryItems: [URLQueryItem]
+    private(set) var url: URL?
     
-    private var urlComponents: URLComponents {
+    init(httpMethod: HTTPMethod,
+         resource: APIResource,
+         endpoint: EndPoint,
+         pathComponents: [String] = [],
+         queryItems: [URLQueryItem] = [])
+    {
+        self.httpMethod = httpMethod
+        self.url = self.makeUrl(httpMethod: httpMethod,
+                                resource: resource,
+                                endpoint: endpoint,
+                                pathComponents: pathComponents,
+                                queryItems: queryItems)
+    }
+    
+    private func makeUrl(httpMethod: HTTPMethod,
+                         resource: APIResource,
+                         endpoint: EndPoint,
+                         pathComponents: [String],
+                         queryItems: [URLQueryItem]) -> URL? {
         
-        guard var urlComponents = URLComponents(string: AppConstants.baseUrl) else {
-            return URLComponents()
-        }
+        guard var urlComponents = URLComponents(string: AppConstants.baseUrl) else { return nil }
         urlComponents.path.append("/\(resource.rawValue)")
         urlComponents.path.append("/\(endpoint.rawValue)")
 
@@ -40,26 +53,8 @@ final class NetworkRequest {
         }
         
         if !queryItems.isEmpty {
-            urlComponents.queryItems = self.queryItems
+            urlComponents.queryItems = queryItems
         }
-
-        return urlComponents
+        return urlComponents.url
     }
-    
-    var url: URL? {
-        return self.urlComponents.url
-    }
-    
-    init(httpMethod: HTTPMethod,
-         resource: APIResource,
-         endpoint: EndPoint,
-         pathComponents: [String] = [],
-         queryItems: [URLQueryItem] = []) {
-        self.httpMethod = httpMethod
-        self.resource = resource
-        self.endpoint = endpoint
-        self.pathComponents = pathComponents
-        self.queryItems = queryItems
-    }
-    
 }
