@@ -41,7 +41,7 @@ final class Task2Tests: XCTestCase {
     }
 
     func testNetWorkRequest_urlString_shouldReturnTrue() throws {
-        let urlStringWithNoQueryItem = "http://10.10.20.102:6080/v2/Dicom/Study"
+        let urlStringWithNoQueryItem = "http://10.10.20.102:6080/v2/Dicom/Study?"
         XCTAssertNotNil(self.dicomStudyRequest.url)
         XCTAssertTrue(URL(string: urlStringWithNoQueryItem) == self.dicomStudyRequest.url)
         

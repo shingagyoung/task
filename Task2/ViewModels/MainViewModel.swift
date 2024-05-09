@@ -23,23 +23,23 @@ struct MainViewModel {
     }
     
     /// Request a single series data of a series.
-    func requestSeries(of id: String) async throws -> Series {
+    func requestSeries(of id: String) async throws -> [Series] {
         let request = NetworkRequest(
             httpMethod: .get,
             resource: .dicom,
             endpoint: .series,
-            pathComponents: [id]
+            queryItems: [URLQueryItem(name: "studyId", value: id)]
         )
-        let result: Series = try await networkService.execute(request)
+        let result: [Series] = try await networkService.execute(request)
         
         return result
     }
     
     /// Request series of each study.
-    func requestDicomSeriesOfStudyList(_ list: [Study]) async throws -> [Series] {
+    func requestDicomSeriesOfStudyList(_ list: [Study]) async throws -> [[Series]] {
         
-        try await withThrowingTaskGroup(of: Series.self) { group in
-            var seriesList: [Series] = []
+        try await withThrowingTaskGroup(of: [Series].self) { group in
+            var seriesList: [[Series]] = []
             
             for study in list {
                 group.addTask {

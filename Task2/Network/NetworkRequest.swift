@@ -51,10 +51,9 @@ final class NetworkRequest {
         pathComponents.forEach {
             urlComponents.path.append("/\($0)")
         }
-        
-        if !queryItems.isEmpty {
-            urlComponents.queryItems = queryItems
-        }
+    
+        urlComponents.queryItems = queryItems
+
         return urlComponents.url
     }
 }
