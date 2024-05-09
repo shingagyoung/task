@@ -12,13 +12,13 @@ final class Task2Tests: XCTestCase {
     private var dicomStudyRequest: NetworkRequest!
     private var dicomStudyRequestWithQueryItems: NetworkRequest!
     private var dicomSeriesRequest: NetworkRequest!
-    private var networkService: DefaultNetworkService!
     
     override func setUpWithError() throws {
         self.dicomStudyRequest = NetworkRequest(
             httpMethod: .get,
             resource: .dicom,
-            endpoint: .study
+            endpoint: .study,
+            queryItems: []
         )
         
         self.dicomStudyRequestWithQueryItems = NetworkRequest(
@@ -34,7 +34,6 @@ final class Task2Tests: XCTestCase {
             pathComponents: ["3"]
         )
         
-        self.networkService = DefaultNetworkService()
     }
 
     override func tearDownWithError() throws {
@@ -52,6 +51,34 @@ final class Task2Tests: XCTestCase {
     }
 
     func testNetworkService_execute_shouldReturnTrue() async throws {
+        let path = Bundle.main.path(forResource: "study_mock", ofType: ".json")!
+        let jsonData = try Data(contentsOf: URL(filePath: path))
+        let decodedData = try JSONDecoder().decode([Study].self, from: jsonData)
+        
+        let response = HTTPURLResponse(url: URL(string: "http://10.10.20.102:6080/v2/Dicom/Study")!,
+                                       statusCode: 200,
+                                       httpVersion: nil,
+                                       headerFields: nil)!
+        
+        let mockSession = MockURLSession(response:(jsonData, response))
+        let networkService = DefaultNetworkService(session: mockSession)
+        let mockResult: [Study] = try await networkService.execute(self.dicomStudyRequest)
+       
+        XCTAssertTrue(mockResult.count == decodedData.count)
+        XCTAssertNotNil(mockResult.first?.patientBirthDate)
+        XCTAssertTrue(mockResult.first?.patientBirthDate == decodedData.first?.patientBirthDate)
+    }
+}
 
+/// Network test를 위한 mock url session class.
+final class MockURLSession: URLSessionProtocol {
+    let response: (Data, URLResponse)
+    
+    init(response: (Data, URLResponse)) {
+        self.response = response
+    }
+    
+    func data(for request: URLRequest, delegate: (URLSessionTaskDelegate)? = nil) async throws -> (Data, URLResponse) {
+        return  response
     }
 }

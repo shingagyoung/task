@@ -7,24 +7,31 @@
 
 import Foundation
 
-protocol NetworkService {
-    func execute<T:Decodable>(_ request: NetworkRequest) async throws -> T
-    func request(from networkRequest: NetworkRequest) -> URLRequest?
+protocol URLSessionProtocol {
+    func data(for request: URLRequest, delegate: (URLSessionTaskDelegate)?) async throws -> (Data, URLResponse)
 }
 
-final class DefaultNetworkService: NetworkService {
+extension URLSession: URLSessionProtocol {}
+
+final class DefaultNetworkService {
+    
+    private let session: URLSessionProtocol
+    
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
     
     func execute<T:Decodable>(_ request: NetworkRequest) async throws -> T {
         guard let urlRequest = self.request(from: request) else {
             throw NetworkServiceError.wrongRequest
         }
         
-        let result = try await URLSession.shared.data(for: urlRequest)
+        let result = try await self.session.data(for: urlRequest, delegate: nil)
         
         return try JSONDecoder().decode(T.self, from: result.0)
     }
     
-    func request(from networkRequest: NetworkRequest) -> URLRequest? {
+    private func request(from networkRequest: NetworkRequest) -> URLRequest? {
         guard let url = networkRequest.url else {
             return nil
         }

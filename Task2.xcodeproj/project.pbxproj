@@ -13,6 +13,7 @@
 		DA7C25B42BEB160E008DCFDC /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B32BEB160E008DCFDC /* NetworkRequest.swift */; };
 		DA7C25B72BEB1789008DCFDC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B62BEB1789008DCFDC /* AppConstants.swift */; };
 		DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */; };
+		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
 		DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA282BEA245100B20493 /* AppDelegate.swift */; };
 		DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */; };
 		DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2C2BEA245100B20493 /* MainViewController.swift */; };
@@ -48,6 +49,7 @@
 		DA7C25B32BEB160E008DCFDC /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		DA7C25B62BEB1789008DCFDC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		DA7C25C72BECA63A008DCFDC /* study_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = study_mock.json; path = ../../Downloads/study_mock.json; sourceTree = "<group>"; };
 		DA8EEA252BEA245100B20493 /* Task2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8EEA282BEA245100B20493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		DA8EEA272BEA245100B20493 /* Task2 */ = {
 			isa = PBXGroup;
 			children = (
+				DA7C25C72BECA63A008DCFDC /* study_mock.json */,
 				DA7C25B82BEB3843008DCFDC /* ViewModels */,
 				DA7C25B52BEB177D008DCFDC /* Utils */,
 				DA7C25B02BEB0F96008DCFDC /* Network */,
@@ -282,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA8EEA352BEA245200B20493 /* LaunchScreen.storyboard in Resources */,
+				DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */,
 				DA8EEA322BEA245200B20493 /* Assets.xcassets in Resources */,
 				DA8EEA302BEA245100B20493 /* Main.storyboard in Resources */,
 			);
