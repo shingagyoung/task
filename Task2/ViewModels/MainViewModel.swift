@@ -7,11 +7,51 @@
 
 import Foundation
 
-struct MainViewModel {
     private let networkService = DefaultNetworkService()
     
+    private var studySections: [StudySection] = []
+    private var studyList: [Study] = []
+    private var seriesList: [String: [Series]] = [:]
+    
+   
+    
+    private func convertStudyToStudySection(_ study: Study) -> StudySection {
+        return StudySection(study: study)
+    }
+    
+}
+
+extension MainViewModel {
+    func numberOfSections() -> Int {
+        return self.studySections.count
+    }
+    
+    func numberOfRows() -> Int {
+        return self.studyList.count
+    }
+    
+    func cellItem(at indexPath: IndexPath) -> StudySection {
+        return self.studySections[indexPath.section]
+    }
+}
+
+// MARK: - Fetch Server Data
+extension MainViewModel {
+    
+    func fetchStudySectionData() async {
+        do {
+            let studies = try await requestStudyList()
+            self.studySections = studies.map {
+                self.convertStudyToStudySection($0)
+            }
+        }
+        catch {
+            print("Error -- \(error)")
+        }
+    }
+    
     /// Request entire study list.
-    func requestStudyList() async throws -> [Study] {
+    private func requestStudyList() async throws -> [Study] {
         let request = NetworkRequest(
             httpMethod: .get,
             resource: .dicom,
@@ -55,10 +95,4 @@ struct MainViewModel {
         }
     }
 }
-
 extension MainViewModel {
-    func numberOfItems() -> Int {
-        return 0
-    }
-    
-}

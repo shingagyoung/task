@@ -13,9 +13,11 @@
 		DA7C25B42BEB160E008DCFDC /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B32BEB160E008DCFDC /* NetworkRequest.swift */; };
 		DA7C25B72BEB1789008DCFDC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B62BEB1789008DCFDC /* AppConstants.swift */; };
 		DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */; };
+		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
 		DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */; };
 		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
 		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
+		DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C12BEC65C1008DCFDC /* StudySection.swift */; };
 		DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA282BEA245100B20493 /* AppDelegate.swift */; };
 		DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */; };
 		DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2C2BEA245100B20493 /* MainViewController.swift */; };
@@ -53,6 +55,7 @@
 		DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DicomTableViewCell.xib; sourceTree = "<group>"; };
 		DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DicomTableViewCell.swift; sourceTree = "<group>"; };
+		DA7C25C12BEC65C1008DCFDC /* StudySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySection.swift; sourceTree = "<group>"; };
 		DA7C25C72BECA63A008DCFDC /* study_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = study_mock.json; path = ../../Downloads/study_mock.json; sourceTree = "<group>"; };
 		DA8EEA252BEA245100B20493 /* Task2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8EEA282BEA245100B20493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */,
+				DA7C25C12BEC65C1008DCFDC /* StudySection.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -339,6 +343,7 @@
 				DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */,
 				DA7C25AD2BEB06BC008DCFDC /* Study.swift in Sources */,
 				DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */,
+				DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */,
 				DA7C25AF2BEB087E008DCFDC /* Series.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
