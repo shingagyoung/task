@@ -27,27 +27,27 @@ final class NetworkRequest {
     private let pathComponents: [String]
     private let queryItems: [URLQueryItem]
     
-    private var urlString: URLComponents? {
+    private var urlComponents: URLComponents {
         
-        var urlComponents = URLComponents(string: AppConstants.baseUrl)
-        urlComponents?.path.append("/\(resource.rawValue)")
-        urlComponents?.path.append("/\(endpoint.rawValue)")
+        guard var urlComponents = URLComponents(string: AppConstants.baseUrl) else {
+            return URLComponents()
+        }
+        urlComponents.path.append("/\(resource.rawValue)")
+        urlComponents.path.append("/\(endpoint.rawValue)")
 
-        if !pathComponents.isEmpty {
-            pathComponents.forEach {
-                urlComponents?.path.append("/\($0)")
-            }
+        pathComponents.forEach {
+            urlComponents.path.append("/\($0)")
         }
         
         if !queryItems.isEmpty {
-            urlComponents?.queryItems = self.queryItems
+            urlComponents.queryItems = self.queryItems
         }
-        
+
         return urlComponents
     }
     
     var url: URL? {
-        return self.urlString?.url
+        return self.urlComponents.url
     }
     
     init(httpMethod: HTTPMethod,
