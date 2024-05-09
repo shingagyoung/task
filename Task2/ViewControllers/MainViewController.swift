@@ -39,6 +39,7 @@ final class MainViewController: UIViewController {
     private func registerTableViewCell() {
         self.resultTableView.register(UINib(nibName: "DicomTableViewCell", bundle: nil), forCellReuseIdentifier: "DicomTableViewCell")
       
+        self.resultTableView.register(UINib(nibName: "SeriesTableViewCell", bundle: nil), forCellReuseIdentifier: "SeriesTableViewCell")
     }
 }
 
@@ -52,13 +53,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DicomTableViewCell", for: indexPath) as? DicomTableViewCell else { fatalError() }
+        let studySection = self.viewModel.cellItem(at: indexPath.section)
         
-        cell.configure(with: self.viewModel.cellItem(at: indexPath.section))
-        
-        //TODO: Series Cell 추가하기
-        
-        return cell
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DicomTableViewCell", for: indexPath) as? DicomTableViewCell else { fatalError() }
+            
+            cell.configure(with: studySection)
+            
+            return cell
+            
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeriesTableViewCell", for: indexPath) as? SeriesTableViewCell else { fatalError() }
+            
+            cell.configure(with: studySection.seriesList[indexPath.row-1])
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

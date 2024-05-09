@@ -18,6 +18,8 @@
 		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
 		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
 		DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C12BEC65C1008DCFDC /* StudySection.swift */; };
+		DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */; };
+		DA7C25C42BEC8E74008DCFDC /* SeriesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */; };
 		DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA282BEA245100B20493 /* AppDelegate.swift */; };
 		DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */; };
 		DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2C2BEA245100B20493 /* MainViewController.swift */; };
@@ -56,6 +58,8 @@
 		DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DicomTableViewCell.xib; sourceTree = "<group>"; };
 		DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DicomTableViewCell.swift; sourceTree = "<group>"; };
 		DA7C25C12BEC65C1008DCFDC /* StudySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySection.swift; sourceTree = "<group>"; };
+		DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeriesTableViewCell.xib; sourceTree = "<group>"; };
+		DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesTableViewCell.swift; sourceTree = "<group>"; };
 		DA7C25C72BECA63A008DCFDC /* study_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = study_mock.json; path = ../../Downloads/study_mock.json; sourceTree = "<group>"; };
 		DA8EEA252BEA245100B20493 /* Task2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8EEA282BEA245100B20493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,12 +140,18 @@
 			isa = PBXGroup;
 			children = (
 				DA8EEA2E2BEA245100B20493 /* Main.storyboard */,
+				DA8EEA2C2BEA245100B20493 /* MainViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		DA7C25BC2BEB5BA0008DCFDC /* Views */ = {
+			isa = PBXGroup;
 			children = (
+				DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */,
 				DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */,
+				DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */,
+				DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */,
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -308,6 +318,7 @@
 				DA8EEA352BEA245200B20493 /* LaunchScreen.storyboard in Resources */,
 				DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */,
 				DA8EEA322BEA245200B20493 /* Assets.xcassets in Resources */,
+				DA7C25C42BEC8E74008DCFDC /* SeriesTableViewCell.xib in Resources */,
 				DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */,
 				DA8EEA302BEA245100B20493 /* Main.storyboard in Resources */,
 			);
@@ -344,6 +355,7 @@
 				DA7C25AD2BEB06BC008DCFDC /* Study.swift in Sources */,
 				DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */,
 				DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */,
+				DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */,
 				DA7C25AF2BEB087E008DCFDC /* Series.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
