@@ -15,11 +15,11 @@
 		DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25B92BEB3850008DCFDC /* MainViewModel.swift */; };
 		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
 		DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */; };
-		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
-		
 		DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C12BEC65C1008DCFDC /* StudySection.swift */; };
-		DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */; };
 		DA7C25C42BEC8E74008DCFDC /* SeriesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */; };
+		DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */; };
+		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
+		DA7C25D32BEDA9FE008DCFDC /* UITableViewCell+identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */; };
 		DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA282BEA245100B20493 /* AppDelegate.swift */; };
 		DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */; };
 		DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA2C2BEA245100B20493 /* MainViewController.swift */; };
@@ -32,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DA7C25D02BECCEDF008DCFDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA8EEA1D2BEA245100B20493 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA8EEA242BEA245100B20493;
+			remoteInfo = Task2;
+		};
 		DA8EEA3C2BEA245200B20493 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA8EEA1D2BEA245100B20493 /* Project object */;
@@ -39,7 +46,6 @@
 			remoteGlobalIDString = DA8EEA242BEA245100B20493;
 			remoteInfo = Task2;
 		};
-		
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +61,8 @@
 		DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeriesTableViewCell.xib; sourceTree = "<group>"; };
 		DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesTableViewCell.swift; sourceTree = "<group>"; };
 		DA7C25C72BECA63A008DCFDC /* study_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = study_mock.json; path = ../../Downloads/study_mock.json; sourceTree = "<group>"; };
+		DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+identifier.swift"; sourceTree = "<group>"; };
+		DA7C25D42BEDACD3008DCFDC /* study_mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = study_mock.json; sourceTree = "<group>"; };
 		DA8EEA252BEA245100B20493 /* Task2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8EEA282BEA245100B20493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA8EEA2A2BEA245100B20493 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +158,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		DA7C25D12BEDA9DD008DCFDC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DA7C25D52BEDACDC008DCFDC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DA7C25D42BEDACD3008DCFDC /* study_mock.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		DA8EEA1C2BEA245100B20493 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +197,8 @@
 		DA8EEA272BEA245100B20493 /* Task2 */ = {
 			isa = PBXGroup;
 			children = (
+				DA7C25D52BEDACDC008DCFDC /* Resources */,
+				DA7C25D12BEDA9DD008DCFDC /* Extensions */,
 				DA7C25BB2BEB5B92008DCFDC /* ViewControllers */,
 				DA7C25BC2BEB5BA0008DCFDC /* Views */,
 				DA7C25C72BECA63A008DCFDC /* study_mock.json */,
@@ -348,6 +374,7 @@
 				DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */,
 				DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */,
 				DA7C25AD2BEB06BC008DCFDC /* Study.swift in Sources */,
+				DA7C25D32BEDA9FE008DCFDC /* UITableViewCell+identifier.swift in Sources */,
 				DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */,
 				DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */,
 				DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */,
@@ -383,7 +410,7 @@
 		DA8EEA472BEA245200B20493 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DA8EEA242BEA245100B20493 /* Task2 */;
-			targetProxy = DA8EEA462BEA245200B20493 /* PBXContainerItemProxy */;
+			targetProxy = DA7C25D02BECCEDF008DCFDC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

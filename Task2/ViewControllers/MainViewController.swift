@@ -9,11 +9,11 @@ import UIKit
 
 final class MainViewController: UIViewController {
 
+    private let viewModel: MainViewModel = MainViewModel()
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var resultTableView: UITableView!
-    
-    private let viewModel: MainViewModel = MainViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +41,21 @@ final class MainViewController: UIViewController {
         self.resultTableView.dataSource = self
     }
     
-    private func registerTableViewCell() {
-        self.resultTableView.register(UINib(nibName: "DicomTableViewCell", bundle: nil), forCellReuseIdentifier: "DicomTableViewCell")
-      
-        self.resultTableView.register(UINib(nibName: "SeriesTableViewCell", bundle: nil), forCellReuseIdentifier: "SeriesTableViewCell")
-    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    private func registerTableViewCell() {
+        self.resultTableView.register(
+            UINib(nibName: DicomTableViewCell.identifier, bundle: nil),
+            forCellReuseIdentifier: DicomTableViewCell.identifier
+        )
+      
+        self.resultTableView.register(
+            UINib(nibName: SeriesTableViewCell.identifier, bundle: nil),
+            forCellReuseIdentifier: SeriesTableViewCell.identifier
+        )
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.numberOfSections()
     }
@@ -61,14 +68,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let studySection = self.viewModel.cellItem(at: indexPath.section)
         
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DicomTableViewCell", for: indexPath) as? DicomTableViewCell else { fatalError() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DicomTableViewCell.identifier, for: indexPath
+            ) as? DicomTableViewCell else { fatalError() }
             
             cell.configure(with: studySection)
             
             return cell
             
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SeriesTableViewCell", for: indexPath) as? SeriesTableViewCell else { fatalError() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: SeriesTableViewCell.identifier, for: indexPath
+            ) as? SeriesTableViewCell else { fatalError() }
             
             cell.configure(with: studySection.seriesList[indexPath.row-1])
             

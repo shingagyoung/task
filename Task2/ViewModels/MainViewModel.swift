@@ -53,7 +53,7 @@ extension MainViewModel {
             httpMethod: .get,
             resource: .dicom,
             endpoint: .study,
-            queryItems: [URLQueryItem(name: "filter", value: text)]
+            queryItems: [URLQueryItem(name: AppConstants.APIQuery.filter, value: text)]
         )
         let result: [Study] = try await networkService.execute(request)
         
@@ -66,32 +66,12 @@ extension MainViewModel {
             httpMethod: .get,
             resource: .dicom,
             endpoint: .series,
-            queryItems: [URLQueryItem(name: "studyId", value: id)]
+            queryItems: [URLQueryItem(name: AppConstants.APIQuery.studyId, value: id)]
         )
         let result: [Series] = try await networkService.execute(request)
         
         return result
     }
-    
-    // NOT IN USE: PLEASE DELETE
-    /// Request series of each study.
-    func requestDicomSeriesOfStudyList(_ list: [Study]) async throws -> [[Series]] {
-        
-        try await withThrowingTaskGroup(of: [Series].self) { group in
-            var seriesList: [[Series]] = []
-            
-            for study in list {
-                group.addTask {
-                    return try await self.requestSeries(of: "\(study.id)")
-                }
-                
-                for try await series in group {
-                    seriesList.append(series)
-                }
-            }
-            
-            return seriesList
-        }
-    }
+
 }
 
