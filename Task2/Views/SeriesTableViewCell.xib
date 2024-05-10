@@ -8,13 +8,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SeriesTableViewCell" customModule="Task2" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SeriesTableViewCell" customModule="Task2" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="683" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ads-WB-yGc" userLabel="SeriesIdStackView">
+                <stackView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ads-WB-yGc" userLabel="SeriesIdStackView">
                     <rect key="frame" x="10" y="2" width="663" height="20.333333333333332"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Series Id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQt-IO-dec">
@@ -30,6 +30,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <color key="backgroundColor" systemColor="systemGray4Color"/>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YvP-s6-Ach" userLabel="SeriesInfoStackView">
                     <rect key="frame" x="10" y="27.333333333333329" width="663" height="136.66666666666669"/>
@@ -62,7 +63,6 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemGray5Color"/>
             <constraints>
                 <constraint firstItem="ads-WB-yGc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="Eun-sV-UjC"/>
                 <constraint firstItem="YvP-s6-Ach" firstAttribute="top" secondItem="ads-WB-yGc" secondAttribute="bottom" constant="5" id="Mu8-wj-lck"/>
@@ -82,8 +82,8 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
