@@ -45,8 +45,7 @@ final class NetworkRequest {
                          queryItems: [URLQueryItem]) -> URL? {
         
         guard var urlComponents = URLComponents(string: AppConstants.baseUrl) else { return nil }
-        urlComponents.path.append("/\(resource.rawValue)")
-        urlComponents.path.append("/\(endpoint.rawValue)")
+        urlComponents.path.append("/\(resource.rawValue)/\(endpoint.rawValue)")
 
         pathComponents.forEach {
             urlComponents.path.append("/\($0)")
