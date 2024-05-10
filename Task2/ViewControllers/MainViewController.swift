@@ -28,6 +28,11 @@ final class MainViewController: UIViewController {
     }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
+        guard let text = self.searchTextField.text else { return }
+        Task {
+            await self.viewModel.fetchStudySectionData(with: text)
+            self.resultTableView.reloadData()
+        }
         
     }
     
@@ -72,7 +77,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var rowItem = self.viewModel.cellItem(at: indexPath.section)
+        let rowItem = self.viewModel.cellItem(at: indexPath.section)
         rowItem.isExpanded.toggle()
         
         if rowItem.isExpanded {

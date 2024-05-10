@@ -16,7 +16,7 @@
 		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
 		DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */; };
 		DA7C25C82BECA63A008DCFDC /* study_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C72BECA63A008DCFDC /* study_mock.json */; };
-		DA7C25BE2BEB5BF6008DCFDC /* DicomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25BD2BEB5BF6008DCFDC /* DicomTableViewCell.xib */; };
+		
 		DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C12BEC65C1008DCFDC /* StudySection.swift */; };
 		DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */; };
 		DA7C25C42BEC8E74008DCFDC /* SeriesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */; };
@@ -39,13 +39,7 @@
 			remoteGlobalIDString = DA8EEA242BEA245100B20493;
 			remoteInfo = Task2;
 		};
-		DA8EEA462BEA245200B20493 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA8EEA1D2BEA245100B20493 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DA8EEA242BEA245100B20493;
-			remoteInfo = Task2;
-		};
+		
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +146,7 @@
 				DA7C25BF2BEB6680008DCFDC /* DicomTableViewCell.swift */,
 				DA7C25C32BEC8E74008DCFDC /* SeriesTableViewCell.xib */,
 				DA7C25C52BEC8F11008DCFDC /* SeriesTableViewCell.swift */,
+			);
 			path = Views;
 			sourceTree = "<group>";
 		};

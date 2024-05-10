@@ -7,20 +7,13 @@
 
 import Foundation
 
+class MainViewModel {
     private let networkService = DefaultNetworkService()
-    
     private var studySections: [StudySection] = []
-    private var studyList: [Study] = []
-    private var seriesList: [String: [Series]] = [:]
-    
-   
-    
-    private func convertStudyToStudySection(_ study: Study) -> StudySection {
-        return StudySection(study: study)
-    }
     
 }
 
+// MARK: - TableView에 출력할 데이터
 extension MainViewModel {
     func numberOfSections() -> Int {
         return self.studySections.count
@@ -33,14 +26,18 @@ extension MainViewModel {
     func cellItem(at section: Int) -> StudySection {
         return self.studySections[section]
     }
+    
+    private func convertStudyToStudySection(_ study: Study) -> StudySection {
+        return StudySection(study: study)
+    }
 }
 
 // MARK: - Fetch Server Data
 extension MainViewModel {
     
-    func fetchStudySectionData() async {
+    func fetchStudySectionData(with text: String = "") async {
         do {
-            let studies = try await requestStudyList()
+            let studies = try await requestStudyList(with: text)
             self.studySections = studies.map {
                 self.convertStudyToStudySection($0)
             }
@@ -51,11 +48,12 @@ extension MainViewModel {
     }
     
     /// Request entire study list.
-    private func requestStudyList() async throws -> [Study] {
+    private func requestStudyList(with text: String) async throws -> [Study] {
         let request = NetworkRequest(
             httpMethod: .get,
             resource: .dicom,
-            endpoint: .study
+            endpoint: .study,
+            queryItems: [URLQueryItem(name: "filter", value: text)]
         )
         let result: [Study] = try await networkService.execute(request)
         
@@ -75,6 +73,7 @@ extension MainViewModel {
         return result
     }
     
+    // NOT IN USE: PLEASE DELETE
     /// Request series of each study.
     func requestDicomSeriesOfStudyList(_ list: [Study]) async throws -> [[Series]] {
         
@@ -95,4 +94,4 @@ extension MainViewModel {
         }
     }
 }
-extension MainViewModel {
+
