@@ -13,6 +13,10 @@ final class Task2Tests: XCTestCase {
     private var dicomStudyRequestWithQueryItems: NetworkRequest!
     private var dicomSeriesRequest: NetworkRequest!
     
+    private let nrrdUrl: URL = URL(string: "http://10.10.20.102:6080/dicom/2021/08/20/30000021081923435668600026257/1.3.12.2.1107.5.1.4.73230.30000021081923435668600026257.nrrd")!
+    
+    private let dcmUrl: URL = URL(string: "http://10.10.20.102:6080/dicom/2021/08/20/30000021081923435668600026257/1.3.12.2.1107.5.1.4.73230.30000021081923435668600026266.dcm")!
+    
     override func setUpWithError() throws {
         self.dicomStudyRequest = NetworkRequest(
             httpMethod: .get,
@@ -68,6 +72,37 @@ final class Task2Tests: XCTestCase {
         XCTAssertNotNil(mockResult.first?.patientBirthDate)
         XCTAssertTrue(mockResult.first?.patientBirthDate == decodedData.first?.patientBirthDate)
     }
+    
+    func testNrrd_isNrrdFile_shouldReturnTrue() throws {
+        let isNrrd = NrrdUtil.isNrrdFile(nrrdUrl)
+        XCTAssertTrue(isNrrd)
+    }
+    
+    func testNrrd_nrrdHeader_shouldNotReturnData() async throws {
+        let result = try await NrrdRaw.loadAsync(nrrdUrl)
+        print("Sizes: \(result.header.sizes)")
+
+        let bytes = result.raw.toByteArray()
+        print("Total: \(bytes.count)")
+        
+        let readable = ReadableData(result.raw)
+        var d2Bytes: [[Byte]] = []
+       
+        for _ in 0..<result.header.sizes[1] {
+            
+            let bt = readable.readBytes(count: 512)
+            d2Bytes.append(bt)
+            
+        }
+        if let image = ImageManger.imageFromPixelData(pixelData: d2Bytes) {
+            // Use the resulting UIImage
+            print(image)
+        } else {
+            print("Failed to create UIImage from pixel data")
+        }
+
+    }
+    
 }
 
 /// Network test를 위한 mock url session class.
