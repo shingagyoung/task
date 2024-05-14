@@ -43,13 +43,12 @@ final class SeriesInfo {
         let depth = dataSize.z
 
         let readable = ReadableData(nrrdData.raw)
-        let divided = sqrt(Double(nrrdData.raw.toByteArray().count) / Double(depth))
         
-        for _ in 0..<depth {
+        for _ in 0..<Int(depth) {
             var pixelData: [[Byte]] = []
-            for _ in 0..<col {
-                let bt = readable.readBytes(count: Int(row))
-                pixelData.append(bt)
+            
+            for i in 0..<Int(row) {
+                pixelData.append(readable.readBytes(count: Int(col*2)))
             }
             guard let img = ImageManger.imageFromPixelData(pixelData: pixelData) else {
                 throw DicomError.imageError

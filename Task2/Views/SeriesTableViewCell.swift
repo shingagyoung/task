@@ -74,9 +74,8 @@ final class ImageManger {
         let data = NSMutableData()
 
         // Flatten the 2D array into a 1D array and append to the data buffer
-        for row in pixelData {
-            let rowData = Data(row)
-            data.append(rowData)
+        pixelData.forEach {
+            data.append(Data($0))
         }
 
         // Create a data provider
