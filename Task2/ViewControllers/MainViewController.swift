@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import OSLog
 
 final class MainViewController: UIViewController {
 
