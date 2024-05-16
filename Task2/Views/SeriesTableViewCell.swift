@@ -69,7 +69,8 @@ final class SeriesTableViewCell: UITableViewCell {
 
 //TODO: Create an individual file for this class.
 final class ImageManger {
-    static func imageFromPixelData(pixelData: [[UInt8]]) -> UIImage? {
+    
+    static func convertToImage(from pixelData: [[UInt8]]) -> UIImage? {
         // Create a mutable data buffer
         let data = NSMutableData()
 
@@ -88,10 +89,10 @@ final class ImageManger {
             width: pixelData[0].count,
             height: pixelData.count,
             bitsPerComponent: 8,
-            bitsPerPixel: 8 * MemoryLayout<UInt8>.size,
-            bytesPerRow: pixelData[0].count * MemoryLayout<UInt8>.size,
+            bitsPerPixel: 8,
+            bytesPerRow: pixelData[0].count,
             space: CGColorSpaceCreateDeviceGray(),
-            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+            bitmapInfo: .byteOrderDefault,
             provider: provider,
             decode: nil,
             shouldInterpolate: false,

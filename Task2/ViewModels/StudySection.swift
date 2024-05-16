@@ -47,10 +47,13 @@ final class SeriesInfo {
         for _ in 0..<Int(depth) {
             var pixelData: [[Byte]] = []
             
-            for i in 0..<Int(row) {
-                pixelData.append(readable.readBytes(count: Int(col*2)))
+            for _ in 0..<Int(row) {
+                let byteLine = readable.readBytes(count: Int(col*2)).map {
+                    return $0 == 252 ? 0 : $0
+                }
+                pixelData.append(byteLine)
             }
-            guard let img = ImageManger.imageFromPixelData(pixelData: pixelData) else {
+            guard let img = ImageManger.convertToImage(from: pixelData) else {
                 throw DicomError.imageError
             }
             self.images.append(img)

@@ -94,7 +94,7 @@ final class Task2Tests: XCTestCase {
             d2Bytes.append(bt)
             
         }
-        if let image = ImageManger.imageFromPixelData(pixelData: d2Bytes) {
+        if let image = ImageManger.convertToImage(pixelData: d2Bytes) {
             // Use the resulting UIImage
             print(image)
         } else {
