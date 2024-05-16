@@ -70,21 +70,52 @@ final class SeriesTableViewCell: UITableViewCell {
 //TODO: Create an individual file for this class.
 final class ImageManger {
     
-    static func convertToImage(from pixelData: [[UInt8]]) -> UIImage? {
-        // Create a mutable data buffer
+    // [[UInt16]]을 UIImage?로 변환.
+    static func convertUInt16ToImage(from pixelData: [[UInt16]]) -> UIImage? {
         let data = NSMutableData()
 
-        // Flatten the 2D array into a 1D array and append to the data buffer
-        pixelData.forEach {
-            data.append(Data($0))
+        for row in pixelData {
+            var rowData = row
+            data.append(&rowData, length: MemoryLayout<UInt16>.size * row.count)
         }
 
-        // Create a data provider
         guard let provider = CGDataProvider(data: data) else {
             return nil
         }
 
-        // Create a CGImage
+        guard let cgImage = CGImage(
+            width: pixelData[0].count,
+            height: pixelData.count,
+            bitsPerComponent: 16,
+            bitsPerPixel: 16,
+            bytesPerRow: MemoryLayout<UInt16>.size * pixelData[0].count,
+            space: CGColorSpaceCreateDeviceGray(),
+            bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
+            provider: provider,
+            decode: nil,
+            shouldInterpolate: false,
+            intent: .defaultIntent
+        ) else {
+            return nil
+        }
+
+        let image = UIImage(cgImage: cgImage)
+        return image
+    }
+
+    // [[UInt18]]을 UIImage?로 변환.
+    static func convertUInt8ToImage(from pixelData: [[UInt8]]) -> UIImage? {
+        let data = NSMutableData()
+
+        // 2D array를 1D array로 변경.
+        pixelData.forEach {
+            data.append(Data($0))
+        }
+        
+        guard let provider = CGDataProvider(data: data) else {
+            return nil
+        }
+ 
         guard let cgImage = CGImage(
             width: pixelData[0].count,
             height: pixelData.count,
@@ -101,7 +132,6 @@ final class ImageManger {
             return nil
         }
 
-        // Create a UIImage
         let image = UIImage(cgImage: cgImage)
         return image
     }

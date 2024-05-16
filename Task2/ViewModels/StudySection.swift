@@ -44,16 +44,21 @@ final class SeriesInfo {
 
         let readable = ReadableData(nrrdData.raw)
         
+        // Convert to [UInt16].
+        let uint16 = nrrdData.raw.withUnsafeBytes {
+            Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
+        }
+        
         for _ in 0..<Int(depth) {
-            var pixelData: [[Byte]] = []
+            var pixelData: [[UInt16]] = []
             
             for _ in 0..<Int(row) {
-                let byteLine = readable.readBytes(count: Int(col*2)).map {
-                    return $0 == 252 ? 0 : $0
+                let byteLine = readable.readBytes(count: Int(col*2)).withUnsafeBytes {
+                    Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
                 }
                 pixelData.append(byteLine)
             }
-            guard let img = ImageManger.convertToImage(from: pixelData) else {
+            guard let img = ImageManger.convertUInt16ToImage(from: pixelData) else {
                 throw DicomError.imageError
             }
             self.images.append(img)
