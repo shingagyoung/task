@@ -29,6 +29,7 @@
 		DA8EEA402BEA245200B20493 /* Task2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA3F2BEA245200B20493 /* Task2Tests.swift */; };
 		DA8EEA4A2BEA245200B20493 /* Task2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA492BEA245200B20493 /* Task2UITests.swift */; };
 		DA8EEA4C2BEA245200B20493 /* Task2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8EEA4B2BEA245200B20493 /* Task2UITestsLaunchTests.swift */; };
+		DAB422D72BF5D0B7005CAE27 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		DA8EEA452BEA245200B20493 /* Task2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Task2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8EEA492BEA245200B20493 /* Task2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task2UITests.swift; sourceTree = "<group>"; };
 		DA8EEA4B2BEA245200B20493 /* Task2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7C25B62BEB1789008DCFDC /* AppConstants.swift */,
+				DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -196,11 +199,9 @@
 		DA8EEA272BEA245100B20493 /* Task2 */ = {
 			isa = PBXGroup;
 			children = (
-				DA7C25D52BEDACDC008DCFDC /* Resources */,
 				DA7C25D12BEDA9DD008DCFDC /* Extensions */,
 				DA7C25BB2BEB5B92008DCFDC /* ViewControllers */,
 				DA7C25BC2BEB5BA0008DCFDC /* Views */,
-				DA7C25C72BECA63A008DCFDC /* study_mock.json */,
 				DA7C25B82BEB3843008DCFDC /* ViewModels */,
 				DA7C25B52BEB177D008DCFDC /* Utils */,
 				DA7C25B02BEB0F96008DCFDC /* Network */,
@@ -371,6 +372,7 @@
 				DA7C25B22BEB12FB008DCFDC /* NetworkService.swift in Sources */,
 				DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */,
 				DA7C25B72BEB1789008DCFDC /* AppConstants.swift in Sources */,
+				DAB422D72BF5D0B7005CAE27 /* AppLogger.swift in Sources */,
 				DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */,
 				DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */,
 				DA7C25AD2BEB06BC008DCFDC /* Study.swift in Sources */,

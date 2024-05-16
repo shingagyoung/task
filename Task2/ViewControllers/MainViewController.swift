@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class MainViewController: UIViewController {
 
@@ -76,41 +77,44 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
             
-        } else {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SeriesTableViewCell.identifier, for: indexPath
-            ) as? SeriesTableViewCell else { fatalError() }
-            
-            cell.configure(with: studySection.seriesList[indexPath.row-1])
-            
-            return cell
         }
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: SeriesTableViewCell.identifier, for: indexPath
+        ) as? SeriesTableViewCell else { fatalError() }
+        
+        cell.configure(with: studySection.seriesList[indexPath.row-1])
+        
+        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let rowItem = self.viewModel.cellItem(at: indexPath.section)
         rowItem.isExpanded.toggle()
         
-        if rowItem.isExpanded {
-            Task {
-                do {
-                    let seriesList = try await self.viewModel.requestSeries(of:"\(rowItem.study.id)")
-                    rowItem.seriesList = seriesList
-                    
-                    self.resultTableView.reloadSections(
-                        [indexPath.section],
-                        with: .automatic
-                    )
-                }
-                catch {
-                    print("Error -- \(error.localizedDescription)")
-                }
-            }
-        } else {
+        guard rowItem.isExpanded else {
             self.resultTableView.reloadSections(
                 [indexPath.section],
                 with: .automatic
             )
+            return
         }
+        
+        Task {
+            do {
+                let seriesList = try await self.viewModel.requestSeries(of:"\(rowItem.study.id)")
+                rowItem.seriesList = seriesList
+                
+                self.resultTableView.reloadSections(
+                    [indexPath.section],
+                    with: .automatic
+                )
+            }
+            catch {
+                appLogger.error("Error -- \(error)")
+            }
+        }
+        
     }
 }

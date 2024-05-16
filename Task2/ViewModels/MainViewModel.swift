@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class MainViewModel {
     private let networkService = DefaultNetworkService()
@@ -43,7 +44,7 @@ extension MainViewModel {
             }
         }
         catch {
-            print("Error -- \(error)")
+            Logger().log(level: .error, "Error -- \(error)")
         }
     }
     
