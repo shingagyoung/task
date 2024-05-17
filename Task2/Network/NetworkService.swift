@@ -15,9 +15,12 @@ extension URLSession: URLSessionProtocol {}
 
 final class DefaultNetworkService {
     
+    private let cacheManager: CacheManager
     private let session: URLSessionProtocol
     
-    init(session: URLSessionProtocol = URLSession.shared) {
+    init(cacheManager: CacheManager,
+         session: URLSessionProtocol = URLSession.shared) {
+        self.cacheManager = cacheManager
         self.session = session
     }
     
@@ -26,9 +29,14 @@ final class DefaultNetworkService {
             throw NetworkServiceError.wrongRequest
         }
         
-        let result = try await self.session.data(for: urlRequest, delegate: nil)
+        guard let cachedData = self.cacheManager.retrieveCache(url: request.url) else {
+            
+            let result = try await self.session.data(for: urlRequest, delegate: nil)
+            self.cacheManager.setCache(url: request.url, data: result.0)
+            return try JSONDecoder().decode(T.self, from: result.0)
+        }
         
-        return try JSONDecoder().decode(T.self, from: result.0)
+        return try JSONDecoder().decode(T.self, from: cachedData)
     }
     
     private func request(from networkRequest: NetworkRequest) -> URLRequest? {

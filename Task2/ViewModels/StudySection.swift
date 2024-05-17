@@ -38,23 +38,15 @@ final class SeriesInfo {
         
         let nrrdData = try await NrrdRaw.loadAsync(url)
         let dataSize = nrrdData.getSizes()
-        let col = dataSize.x
-        let row = dataSize.y
-        let depth = dataSize.z
-
         let readable = ReadableData(nrrdData.raw)
         
         // Convert to [UInt16].
-        let uint16 = nrrdData.raw.withUnsafeBytes {
-            Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
-        }
-        
-        for _ in 0..<Int(depth) {
+        for _ in 0..<Int(dataSize.z) {
             var pixelData: [[UInt16]] = []
             
-            for _ in 0..<Int(row) {
+            for _ in 0..<Int(dataSize.y) {
                 // Convert to UInt16.
-                let byteLine = readable.readBytes(count: Int(col)*MemoryLayout<UInt16>.size).withUnsafeBytes {
+                let byteLine = readable.readBytes(count: Int(dataSize.x)*MemoryLayout<UInt16>.size).withUnsafeBytes {
                     Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
                 }
                 pixelData.append(byteLine)

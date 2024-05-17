@@ -39,6 +39,7 @@
 		DAB4227C2BF1D5F0005CAE27 /* GZIP in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4227B2BF1D5F0005CAE27 /* GZIP */; };
 		DAB422802BF1D793005CAE27 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4227F2BF1D793005CAE27 /* String.swift */; };
 		DAB422DA2BF6E5C3005CAE27 /* ImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D92BF6E5C3005CAE27 /* ImageConverter.swift */; };
+		DAB422DC2BF70C43005CAE27 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DB2BF70C43005CAE27 /* CacheManager.swift */; };
 		DAB422D72BF5D0B7005CAE27 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		DAB422762BF1D578005CAE27 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		DAB4227F2BF1D793005CAE27 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DAB422D92BF6E5C3005CAE27 /* ImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConverter.swift; sourceTree = "<group>"; };
+		DAB422DB2BF70C43005CAE27 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 			children = (
 				DA7C25B12BEB12FB008DCFDC /* NetworkService.swift */,
 				DA7C25B32BEB160E008DCFDC /* NetworkRequest.swift */,
+				DAB422DB2BF70C43005CAE27 /* CacheManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -411,11 +414,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB422DA2BF6E5C3005CAE27 /* ImageConverter.swift in Sources */,
 				DAB422742BF1D572005CAE27 /* Logger.swift in Sources */,
 				DAB422702BF1D572005CAE27 /* NrrdRaw.swift in Sources */,
 				DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */,
 				DAB422782BF1D578005CAE27 /* Types.swift in Sources */,
 				DA7C25B42BEB160E008DCFDC /* NetworkRequest.swift in Sources */,
+				DAB422DC2BF70C43005CAE27 /* CacheManager.swift in Sources */,
 				DA7C25B22BEB12FB008DCFDC /* NetworkService.swift in Sources */,
 				DA8EEA2D2BEA245100B20493 /* MainViewController.swift in Sources */,
 				DAB422732BF1D572005CAE27 /* BinaryReader.swift in Sources */,
