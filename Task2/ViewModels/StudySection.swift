@@ -32,7 +32,7 @@ final class SeriesInfo {
     }
     
     func fetchDicomImage() async throws {
-        guard let url = URL(string: "http://10.10.20.102:6080/dicom/\(series.volumeFilePath)") else {
+        guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
         

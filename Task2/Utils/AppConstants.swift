@@ -8,7 +8,7 @@
 import Foundation
 
 struct AppConstants {
-    static let baseUrl: String = "http://10.10.20.102:6080/v2"
+    static let baseUrl: String = "http://10.10.20.102:6080"
     
     struct APIQuery {
         static let filter: String = "filter"
