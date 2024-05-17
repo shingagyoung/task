@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class StudySection {
     var study: Study
@@ -35,27 +36,11 @@ final class SeriesInfo {
         guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
-        
+        let start = CFAbsoluteTimeGetCurrent()
         let nrrdData = try await NrrdRaw.loadAsync(url)
-        let dataSize = nrrdData.getSizes()
-        let readable = ReadableData(nrrdData.raw)
+        Logger().log("NrrdRaw data loading time: \(CFAbsoluteTimeGetCurrent()-start)")
         
-        // Convert to [UInt16].
-        for _ in 0..<Int(dataSize.z) {
-            var pixelData: [[UInt16]] = []
-            
-            for _ in 0..<Int(dataSize.y) {
-                // Convert to UInt16.
-                let byteLine = readable.readBytes(count: Int(dataSize.x)*MemoryLayout<UInt16>.size).withUnsafeBytes {
-                    Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
-                }
-                pixelData.append(byteLine)
-            }
-            guard let img = ImageConverter.convertUInt16ToImage(from: pixelData) else {
-                throw DicomError.imageError
-            }
-            self.images.append(img)
-        }
+        self.images = try ImageConverter.convertNrrdToImage(from: nrrdData)
     }
     
 }
@@ -63,5 +48,6 @@ final class SeriesInfo {
 enum DicomError: Error {
     case wrongFilePath
     case imageError
+    case keyNotFound
 }
  

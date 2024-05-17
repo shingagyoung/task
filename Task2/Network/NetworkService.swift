@@ -15,24 +15,25 @@ extension URLSession: URLSessionProtocol {}
 
 final class DefaultNetworkService {
     
-    private let cacheManager: CacheManager
     private let session: URLSessionProtocol
     
-    init(cacheManager: CacheManager,
-         session: URLSessionProtocol = URLSession.shared) {
-        self.cacheManager = cacheManager
+    init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
     
     func execute<T:Decodable>(_ request: NetworkRequest) async throws -> T {
-        guard let urlRequest = self.request(from: request) else {
+        guard let urlRequest = self.request(from: request),
+              let urlString = urlRequest.url?.absoluteString
+        else {
             throw NetworkServiceError.wrongRequest
         }
         
-        guard let cachedData = self.cacheManager.retrieveCache(url: request.url) else {
+        guard let cachedData = CacheManager.shared.retrieveCache(type: .data, key: urlString) as? Data else {
             
             let result = try await self.session.data(for: urlRequest, delegate: nil)
-            self.cacheManager.setCache(url: request.url, data: result.0)
+            CacheManager.shared.setCache(type: .data,
+                                         key: urlString,
+                                         data: result.0 as NSData)
             return try JSONDecoder().decode(T.self, from: result.0)
         }
         

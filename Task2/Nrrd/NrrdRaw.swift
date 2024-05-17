@@ -17,14 +17,22 @@ public class NrrdRaw {
         else {
             throw SkiaError.invalidResource(url: fileUrl, msg: "failed to load invalid NRRD")
         }
-
+        
+        let key = fileUrl.absoluteString
+        if let cachedData = CacheManager.shared.retrieveCache(type: .nrrdRaw, key: key) as? NrrdRaw {
+            return cachedData
+        }
+        
         let data = try Data(contentsOf: fileUrl)
         let reader = BinaryReader(data: ReadableData(data))
 
         let header = try await NrrdHeader.readAsync(readable: reader)
         let body = try await readAllDataBlockAsync(reader, header.encoding)
 
-        return NrrdRaw(header: header, rawData: body)
+        let nrrdRaw = NrrdRaw(header: header, rawData: body)
+        CacheManager.shared.setCache(type: .nrrdRaw, key: key, data: nrrdRaw)
+        
+        return nrrdRaw
     }
 
     public static func readAllDataBlockAsync(_ reader: Readable, _ encoding: NrrdHeader.Encoding?) async throws -> Data

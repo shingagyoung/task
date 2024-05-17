@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 class MainViewModel {
-    private let networkService = DefaultNetworkService(cacheManager: CacheManager())
+    private let networkService = DefaultNetworkService()
     private var studySections: [StudySection] = []
     
 }

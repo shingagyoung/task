@@ -14,4 +14,8 @@ struct AppConstants {
         static let filter: String = "filter"
         static let studyId: String = "studyId"
     }
+    
+    struct ImageQuery {
+        static let imageKey: String = "source"
+    }
 }
