@@ -6,16 +6,55 @@
 //
 
 import Foundation
+import OSLog
 
-struct MainViewModel {
+class MainViewModel {
     private let networkService = DefaultNetworkService()
+    private var studySections: [StudySection] = []
+    
+}
+
+// MARK: - TableView에 출력할 데이터
+extension MainViewModel {
+    func numberOfSections() -> Int {
+        return self.studySections.count
+    }
+    
+    func numberOfRows(at section: Int) -> Int {
+        return studySections[section].isExpanded ? studySections[section].seriesList.count+1 : 1
+    }
+    
+    func cellItem(at section: Int) -> StudySection {
+        return self.studySections[section]
+    }
+    
+    private func convertStudyToStudySection(_ study: Study) -> StudySection {
+        return StudySection(study: study)
+    }
+}
+
+// MARK: - Fetch Server Data
+extension MainViewModel {
+    
+    func fetchStudySectionData(with text: String = "") async {
+        do {
+            let studies = try await requestStudyList(with: text)
+            self.studySections = studies.map {
+                self.convertStudyToStudySection($0)
+            }
+        }
+        catch {
+            Logger().log(level: .error, "Error -- \(error)")
+        }
+    }
     
     /// Request entire study list.
-    func requestStudyList() async throws -> [Study] {
+    private func requestStudyList(with text: String) async throws -> [Study] {
         let request = NetworkRequest(
             httpMethod: .get,
             resource: .dicom,
-            endpoint: .study
+            endpoint: .study,
+            queryItems: [URLQueryItem(name: AppConstants.APIQuery.filter, value: text)]
         )
         let result: [Study] = try await networkService.execute(request)
         
@@ -28,30 +67,12 @@ struct MainViewModel {
             httpMethod: .get,
             resource: .dicom,
             endpoint: .series,
-            queryItems: [URLQueryItem(name: "studyId", value: id)]
+            queryItems: [URLQueryItem(name: AppConstants.APIQuery.studyId, value: id)]
         )
         let result: [Series] = try await networkService.execute(request)
         
         return result
     }
-    
-    /// Request series of each study.
-    func requestDicomSeriesOfStudyList(_ list: [Study]) async throws -> [[Series]] {
-        
-        try await withThrowingTaskGroup(of: [Series].self) { group in
-            var seriesList: [[Series]] = []
-            
-            for study in list {
-                group.addTask {
-                    return try await self.requestSeries(of: "\(study.id)")
-                }
-                
-                for try await series in group {
-                    seriesList.append(series)
-                }
-            }
-            
-            return seriesList
-        }
-    }
+
 }
+

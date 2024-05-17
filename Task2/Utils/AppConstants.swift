@@ -9,4 +9,9 @@ import Foundation
 
 struct AppConstants {
     static let baseUrl: String = "http://10.10.20.102:6080/v2"
+    
+    struct APIQuery {
+        static let filter: String = "filter"
+        static let studyId: String = "studyId"
+    }
 }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DicomTableViewCell" customModule="Task2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="673" height="116"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Id" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Omw-IY-Y1A">
+                    <rect key="frame" x="10" y="2" width="20" height="82"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="T5h-ZS-SrI"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Patient Id" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFN-LG-r5t">
+                    <rect key="frame" x="51" y="1" width="612" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sD7-aX-ECL">
+                    <rect key="frame" x="40" y="0.0" width="1" height="116"/>
+                    <color key="backgroundColor" systemColor="separatorColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="ilS-RH-56L"/>
+                        <constraint firstAttribute="width" constant="1" id="zpf-HF-zHG"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Patient Id Desc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cM7-OO-9bv">
+                    <rect key="frame" x="51" y="24" width="612" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Patient Name" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5a1-hi-ZpY">
+                    <rect key="frame" x="51" y="50" width="612" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Patient Name Desc" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-GG-gze">
+                    <rect key="frame" x="51" y="73" width="612" height="42"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="wPr-GG-gze" firstAttribute="leading" secondItem="sD7-aX-ECL" secondAttribute="trailing" constant="10" id="3bq-zH-0AR"/>
+                <constraint firstItem="Omw-IY-Y1A" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="2" id="AO9-ZM-mu2"/>
+                <constraint firstItem="xFN-LG-r5t" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="D00-dc-GrN"/>
+                <constraint firstItem="5a1-hi-ZpY" firstAttribute="leading" secondItem="sD7-aX-ECL" secondAttribute="trailing" constant="10" id="DA8-Wu-uZt"/>
+                <constraint firstItem="sD7-aX-ECL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="F9u-LC-r78"/>
+                <constraint firstItem="Omw-IY-Y1A" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="GyR-n7-L5h"/>
+                <constraint firstAttribute="trailing" secondItem="xFN-LG-r5t" secondAttribute="trailing" constant="10" id="Kmd-v8-1C6"/>
+                <constraint firstItem="sD7-aX-ECL" firstAttribute="leading" secondItem="Omw-IY-Y1A" secondAttribute="trailing" constant="10" id="M1I-Ar-dXu"/>
+                <constraint firstAttribute="trailing" secondItem="wPr-GG-gze" secondAttribute="trailing" constant="10" id="MWI-Xk-BIQ"/>
+                <constraint firstItem="5a1-hi-ZpY" firstAttribute="top" secondItem="cM7-OO-9bv" secondAttribute="bottom" constant="5" id="Pxi-S0-lBs"/>
+                <constraint firstItem="cM7-OO-9bv" firstAttribute="top" secondItem="xFN-LG-r5t" secondAttribute="bottom" constant="2" id="QjP-vd-Cup"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cM7-OO-9bv" secondAttribute="trailing" constant="10" id="SfN-pL-GGT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5a1-hi-ZpY" secondAttribute="trailing" constant="10" id="TWu-8h-cOX"/>
+                <constraint firstItem="xFN-LG-r5t" firstAttribute="leading" secondItem="sD7-aX-ECL" secondAttribute="trailing" constant="10" id="Zo4-aU-IeO"/>
+                <constraint firstAttribute="bottom" secondItem="sD7-aX-ECL" secondAttribute="bottom" id="aSY-tV-gs4"/>
+                <constraint firstItem="wPr-GG-gze" firstAttribute="top" secondItem="5a1-hi-ZpY" secondAttribute="bottom" constant="2" id="hiz-Fx-OPt"/>
+                <constraint firstItem="Omw-IY-Y1A" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="tq4-T0-A27"/>
+                <constraint firstAttribute="bottom" secondItem="wPr-GG-gze" secondAttribute="bottom" constant="1" id="wxJ-fi-BOo"/>
+                <constraint firstItem="cM7-OO-9bv" firstAttribute="leading" secondItem="sD7-aX-ECL" secondAttribute="trailing" constant="10" id="zlx-lM-m7R"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="patientIdLabel" destination="cM7-OO-9bv" id="3cr-Rz-yl5"/>
+                <outlet property="patientNameLabel" destination="wPr-GG-gze" id="YTP-au-dek"/>
+                <outlet property="studyIdLabel" destination="Omw-IY-Y1A" id="Q2h-qI-4zk"/>
+            </connections>
+            <point key="canvasLocation" x="96.946564885496173" y="-164.78873239436621"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
