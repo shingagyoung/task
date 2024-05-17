@@ -53,12 +53,13 @@ final class SeriesInfo {
             var pixelData: [[UInt16]] = []
             
             for _ in 0..<Int(row) {
-                let byteLine = readable.readBytes(count: Int(col*2)).withUnsafeBytes {
+                // Convert to UInt16.
+                let byteLine = readable.readBytes(count: Int(col)*MemoryLayout<UInt16>.size).withUnsafeBytes {
                     Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
                 }
                 pixelData.append(byteLine)
             }
-            guard let img = ImageManger.convertUInt16ToImage(from: pixelData) else {
+            guard let img = ImageConverter.convertUInt16ToImage(from: pixelData) else {
                 throw DicomError.imageError
             }
             self.images.append(img)
