@@ -7,9 +7,8 @@
 
 import OSLog
 
-let appLog = OSLog(
-    subsystem: Bundle.main.bundleIdentifier!,
-    category: "app"
-)
+extension Logger {
+    private static var bundleId = Bundle.main.bundleIdentifier!
 
-let appLogger = Logger(appLog)
+    static let network = Logger(subsystem: bundleId, category: "Network")
+}

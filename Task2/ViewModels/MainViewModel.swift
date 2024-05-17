@@ -44,7 +44,7 @@ extension MainViewModel {
             }
         }
         catch {
-            Logger().log(level: .error, "Error -- \(error)")
+            Logger.network.error("\(error)")
         }
     }
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 final class SeriesTableViewCell: UITableViewCell {
     
@@ -43,7 +44,7 @@ final class SeriesTableViewCell: UITableViewCell {
                 self.loadIndicator.stopAnimating()
             }
             catch {
-                print("Error -- \(error)")
+                Logger.network.error("\(error)")
             }
         }
         

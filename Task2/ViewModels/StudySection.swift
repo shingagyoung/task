@@ -36,10 +36,7 @@ final class SeriesInfo {
         guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
-        let start = CFAbsoluteTimeGetCurrent()
         let nrrdData = try await NrrdRaw.loadAsync(url)
-        Logger().log("NrrdRaw data loading time: \(CFAbsoluteTimeGetCurrent()-start)")
-        
         self.images = try ImageConverter.convertNrrdToImage(from: nrrdData)
     }
     
