@@ -34,6 +34,12 @@ final class SeriesTableViewCell: UITableViewCell {
         self.dicomImageView.contentMode = .scaleAspectFit
         self.loadIndicator.hidesWhenStopped = true
         
+        guard model.images.isEmpty else {
+            self.dicomImageView.image = model.images.first
+            self.setSlider(with: model.images)
+            return
+        }
+        
         Task {
             do {
                 self.loadIndicator.startAnimating()

@@ -11,16 +11,7 @@ import OSLog
 struct ImageConverter {
     
     static func convertNrrdToImage(from nrrdRaw: NrrdRaw) throws -> [UIImage] {
- 
-        guard let key = nrrdRaw.header.key_value[AppConstants.ImageQuery.imageKey] else {
-            throw DicomError.keyNotFound
-        }
-        
-        // Cache내 데이터 존재 여부 확인.
-        if let cachedImage = CacheManager.shared.retrieveCache(type: .images, key: key) as? [UIImage] {
-            return cachedImage
-        }
-        
+
         var images: [UIImage] = []
         let dataSize = nrrdRaw.getSizes()
         let readable = ReadableData(nrrdRaw.raw)
@@ -42,11 +33,6 @@ struct ImageConverter {
             }
             images.append(img)
         }
-     
-        // Cache에 저장.
-        CacheManager.shared.setCache(type: .images,
-                                     key: key,
-                                     data: images as NSArray)
         
         return images
     }

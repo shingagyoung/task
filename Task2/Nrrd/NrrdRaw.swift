@@ -17,12 +17,7 @@ public class NrrdRaw {
         else {
             throw SkiaError.invalidResource(url: fileUrl, msg: "failed to load invalid NRRD")
         }
-        
-        let key = fileUrl.absoluteString
-        if let cachedData = CacheManager.shared.retrieveCache(type: .nrrdRaw, key: key) as? NrrdRaw {
-            return cachedData
-        }
-        
+
         let data = try Data(contentsOf: fileUrl)
         let reader = BinaryReader(data: ReadableData(data))
 
@@ -30,7 +25,6 @@ public class NrrdRaw {
         let body = try await readAllDataBlockAsync(reader, header.encoding)
 
         let nrrdRaw = NrrdRaw(header: header, rawData: body)
-        CacheManager.shared.setCache(type: .nrrdRaw, key: key, data: nrrdRaw)
         
         return nrrdRaw
     }

@@ -94,14 +94,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let rowItem = self.viewModel.cellItem(at: indexPath.section)
         rowItem.isExpanded.toggle()
         
-        guard rowItem.isExpanded else {
+        guard rowItem.isExpanded,
+              rowItem.seriesList.isEmpty else {
             self.resultTableView.reloadSections(
                 [indexPath.section],
                 with: .automatic
             )
             return
         }
-        
+      
         Task {
             do {
                 let seriesList = try await self.viewModel.requestSeries(of:"\(rowItem.study.id)")

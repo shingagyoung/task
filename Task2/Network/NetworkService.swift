@@ -28,16 +28,8 @@ final class DefaultNetworkService {
             throw NetworkServiceError.wrongRequest
         }
         
-        guard let cachedData = CacheManager.shared.retrieveCache(type: .data, key: urlString) as? Data else {
-            
-            let result = try await self.session.data(for: urlRequest, delegate: nil)
-            CacheManager.shared.setCache(type: .data,
-                                         key: urlString,
-                                         data: result.0 as NSData)
-            return try JSONDecoder().decode(T.self, from: result.0)
-        }
-        
-        return try JSONDecoder().decode(T.self, from: cachedData)
+        let result = try await self.session.data(for: urlRequest, delegate: nil)
+        return try JSONDecoder().decode(T.self, from: result.0)
     }
     
     private func request(from networkRequest: NetworkRequest) -> URLRequest? {
