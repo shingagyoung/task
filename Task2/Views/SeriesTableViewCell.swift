@@ -31,7 +31,6 @@ final class SeriesTableViewCell: UITableViewCell {
         self.seriesId.text = String(model.series.id)
         self.seriesDescription.text = model.series.seriesDescription
         self.numberOfDicomFiles.text = "\(model.series.numberOfDicomFiles)"
-        self.dicomImageView.contentMode = .scaleAspectFit
         self.loadIndicator.hidesWhenStopped = true
         
         guard model.images.isEmpty else {
