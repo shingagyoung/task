@@ -37,7 +37,7 @@ final class SeriesInfo {
             throw DicomError.wrongFilePath
         }
         let nrrdData = try await NrrdRaw.loadAsync(url)
-        self.images = try ImageConverter.convertNrrdToImage(from: nrrdData)
+        self.images = try nrrdData.convertNrrdToImage() 
     }
     
 }

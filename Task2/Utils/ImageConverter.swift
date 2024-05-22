@@ -9,44 +9,41 @@ import UIKit
 
 extension NrrdRaw {
     func convertNrrdToImage() throws -> [UIImage] {
+        guard !self.raw.isEmpty else { return [] }
+        
+        let huValues = self.raw
+            .withUnsafeBytes {
+                Array($0.bindMemory(to: Int16.self)).map(Int16.init(littleEndian:))
+            }
         
         var images: [UIImage] = []
         let dataSize = self.getSizes()
-        let readable = ReadableData(self.raw)
+        var startIndex = 0
         
-        // Nrrd Raw 데이터를 [[UInt16]] type으로 변환.
         for _ in 0..<Int(dataSize.z) {
-            var pixelData: [[UInt16]] = []
+            var singleImageHuValues: [Int16] = []
+
+                let sliceLength = Int(dataSize.y) * Int(dataSize.x)
+                singleImageHuValues = Array(huValues[startIndex..<startIndex+sliceLength])
+                startIndex += sliceLength
+
+            // Convert to a single image.
+            guard let imageSlice = NrrdRaw.convertSingleImage(
+                with: singleImageHuValues,
+                size: dataSize
+            ) else { return [] }
             
-            for _ in 0..<Int(dataSize.y) {
-                // 각 row를 [UInt16]로 변환.
-                let byteLine = readable.readBytes(count: Int(dataSize.x)*MemoryLayout<UInt16>.size).withUnsafeBytes {
-                    Array($0.bindMemory(to: UInt16.self)).map(UInt16.init(littleEndian:))
-                }
-                pixelData.append(byteLine)
-            }
-            // [[UInt16]]를 [UIImage]로 변환.
-            guard let img = UIImage.convertUInt16ToImage(from: pixelData) else {
-                throw DicomError.imageError
-            }
-            images.append(img)
+            images.append(imageSlice)
         }
-        
+       
         return images
+
     }
-}
-
-extension UIImage {
     
-    // Convert [[UInt16]] to UIImage.
-    static func convertUInt16ToImage(from pixelData: [[UInt16]]) -> UIImage? {
-        guard !pixelData.isEmpty else { return nil }
-        let data = NSMutableData()
-
-        // pixelData에 있는 [UInt16]을 데이터로 변환 (2D array to 1D array)
-        for element in pixelData {
-            data.append(element, length: MemoryLayout<UInt16>.size * element.count)
-        }
+    static func convertSingleImage(with huValues: [Int16],
+                                   size: int3) -> UIImage? {
+        let data = NSData(bytes: huValues,
+                          length: MemoryLayout<Int16>.size * huValues.count)
         
         guard let provider = CGDataProvider(data: data) else {
             return nil
@@ -54,11 +51,11 @@ extension UIImage {
         
         // 변환된 data를 이용하여 CGImage 생성
         guard let cgImage = CGImage(
-            width: pixelData[0].count,
-            height: pixelData.count,
+            width: Int(size.y),
+            height: Int(size.x),
             bitsPerComponent: 16,
             bitsPerPixel: 16,
-            bytesPerRow: MemoryLayout<UInt16>.size * pixelData[0].count,
+            bytesPerRow: MemoryLayout<Int16>.size * Int(size.y),
             space: CGColorSpaceCreateDeviceGray(),
             bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue),
             provider: provider,
@@ -70,3 +67,4 @@ extension UIImage {
         return UIImage(cgImage: cgImage)
     }
 }
+
