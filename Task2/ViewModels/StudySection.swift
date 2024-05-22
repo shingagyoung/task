@@ -24,12 +24,20 @@ final class StudySection {
 
 final class SeriesInfo {
     let series: Series
-    var images: [UIImage]
+    var nrrdRaw: NrrdRaw?
+    var axialImages: [UIImage] = []
+    var sagittalImages: [UIImage] = []
+    var coronalImages: [UIImage] = []
     
-    init(series: Series,
-         images: [UIImage] = []) {
+    init(series: Series) {
         self.series = series
-        self.images = images
+    }
+    
+    func loadNrrdData() async throws {
+        guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
+            throw DicomError.wrongFilePath
+        }
+        self.nrrdRaw = try await NrrdRaw.loadAsync(url)
     }
     
     func fetchDicomImage() async throws {

@@ -33,6 +33,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
+                            <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bRO-mQ-eJy">
                             <rect key="frame" x="0.0" y="20.333333333333336" width="663" height="20.333333333333336"/>
@@ -99,7 +100,7 @@
                         <segment title="Coronal"/>
                     </segments>
                 </segmentedControl>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JSG-az-5Pi" userLabel="WWL Stack">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="JSG-az-5Pi" userLabel="WWL Stack">
                     <rect key="frame" x="220" y="198.33333333333334" width="453" height="265.66666666666663"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WWL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Po-J6-GL1">
@@ -108,56 +109,69 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OLU-mT-yHz" userLabel="Slider Stack">
-                            <rect key="frame" x="0.0" y="31.666666666666657" width="453" height="70"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OLU-mT-yHz" userLabel="Slider Stack">
+                            <rect key="frame" x="0.0" y="21.666666666666657" width="453" height="90"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-LB-hb4" userLabel="WW Stack">
-                                    <rect key="frame" x="0.0" y="0.0" width="453" height="30"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kjc-LB-hb4" userLabel="WW Stack">
+                                    <rect key="frame" x="0.0" y="0.0" width="453" height="40"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsS-uh-tUj">
-                                            <rect key="frame" x="0.0" y="0.0" width="52.666666666666664" height="30"/>
+                                            <rect key="frame" x="0.0" y="9.6666666666666554" width="16.333333333333332" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-cd-BEY" userLabel="Window width slider">
-                                            <rect key="frame" x="55.666666666666686" y="0.0" width="104" height="31"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="agW-2g-Faq"/>
-                                            </constraints>
-                                        </slider>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKP-92-gJE" userLabel="value">
-                                            <rect key="frame" x="162.66666666666671" y="0.0" width="290.33333333333326" height="30"/>
-                                            <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zV3-SQ-Hto">
+                                            <rect key="frame" x="353" y="0.0" width="100" height="40"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKP-92-gJE" userLabel="value">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="5"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-cd-BEY" userLabel="Window width slider">
+                                                    <rect key="frame" x="-2" y="10" width="104" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="agW-2g-Faq"/>
+                                                    </constraints>
+                                                </slider>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0HC-Ip-0JM" userLabel="WL Stack">
-                                    <rect key="frame" x="0.0" y="40" width="453" height="30"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0HC-Ip-0JM" userLabel="WL Stack">
+                                    <rect key="frame" x="0.0" y="50" width="453" height="40"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVR-Cl-LvK">
-                                            <rect key="frame" x="0.0" y="0.0" width="31.666666666666668" height="30"/>
+                                            <rect key="frame" x="0.0" y="9.9999999999999982" width="9.3333333333333339" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="9No-0p-ISt" userLabel="Window level slider">
-                                            <rect key="frame" x="34.666666666666686" y="0.0" width="104" height="31"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="nNB-4Q-WaC"/>
-                                            </constraints>
-                                        </slider>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHq-vT-qr1" userLabel="value">
-                                            <rect key="frame" x="141.66666666666671" y="0.0" width="311.33333333333326" height="30"/>
-                                            <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-Gh-nYA">
+                                            <rect key="frame" x="353" y="0.0" width="100" height="40"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHq-vT-qr1" userLabel="value">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="20.333333333333332"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="9No-0p-ISt" userLabel="Window level slider">
+                                                    <rect key="frame" x="-2" y="25.333333333333318" width="104" height="15.666666666666668"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="nNB-4Q-WaC"/>
+                                                    </constraints>
+                                                </slider>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="E4n-4Q-ACi"/>
+                                    </constraints>
                                 </stackView>
                             </subviews>
                         </stackView>
@@ -196,10 +210,15 @@
             <connections>
                 <outlet property="dicomImageSlider" destination="ZOb-Fl-2Po" id="SeZ-1D-Frn"/>
                 <outlet property="dicomImageView" destination="Ma7-h4-583" id="OjP-cb-oDe"/>
+                <outlet property="levelSlider" destination="9No-0p-ISt" id="9ia-qq-nQT"/>
+                <outlet property="levelValueLabel" destination="AHq-vT-qr1" id="DRi-PD-J1K"/>
                 <outlet property="loadIndicator" destination="4aq-SC-Wa4" id="1ME-uP-kJ5"/>
                 <outlet property="numberOfDicomFiles" destination="tgn-Ff-weK" id="Jzs-bd-fCG"/>
+                <outlet property="planeSelector" destination="hub-DU-Udh" id="jQ4-3Q-cMO"/>
                 <outlet property="seriesDescription" destination="6ms-My-kUJ" id="PsD-ci-00o"/>
                 <outlet property="seriesId" destination="xm9-Qw-kNb" id="BaF-0Q-sQd"/>
+                <outlet property="widthSlider" destination="8Cb-cd-BEY" id="wag-xr-t1n"/>
+                <outlet property="widthValueLabel" destination="TKP-92-gJE" id="wP6-Xe-9M6"/>
             </connections>
             <point key="canvasLocation" x="135.1145038167939" y="357.04225352112678"/>
         </view>
