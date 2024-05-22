@@ -47,11 +47,11 @@ final class SeriesTableViewCell: UITableViewCell {
                 
                 self.dicomImageView.image = model.images.first
                 self.setSlider(with: model.images)
-                self.loadIndicator.stopAnimating()
             }
             catch {
                 Logger.network.error("\(error)")
             }
+            self.loadIndicator.stopAnimating()
         }
         
     }

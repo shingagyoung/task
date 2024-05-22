@@ -14,7 +14,7 @@ extension NrrdRaw {
         let min = 0
         let max = 255
 
-        let huValues = self.raw
+        let grayScales = self.raw
             .withUnsafeBytes {
                 Array($0.bindMemory(to: Int16.self))
                     .map(Int16.init(littleEndian:))
@@ -37,12 +37,12 @@ extension NrrdRaw {
             var singleImageHuValues: [Int16] = []
             
             let sliceLength = Int(dataSize.y) * Int(dataSize.x)
-            singleImageHuValues = Array(huValues[startIndex..<startIndex+sliceLength])
+            singleImageHuValues = Array(grayScales[startIndex..<startIndex+sliceLength])
             startIndex += sliceLength
             
             // Convert to a single image.
             guard let imageSlice = UIImage(
-                huValues: singleImageHuValues,
+                grayScales: singleImageHuValues,
                 size: dataSize
             ) else { return [] }
             

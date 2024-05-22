@@ -9,11 +9,11 @@ import UIKit
 
 extension UIImage {
     convenience init?(
-        huValues: [Int16],
+        grayScales: [Int16],
         size: int3
     ) {
-        let data = NSData(bytes: huValues,
-                          length: MemoryLayout<Int16>.size * huValues.count)
+        let data = NSData(bytes: grayScales,
+                          length: MemoryLayout<Int16>.size * grayScales.count)
         
         guard let provider = CGDataProvider(data: data) else {
             return nil
