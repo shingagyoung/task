@@ -13,7 +13,17 @@ extension NrrdRaw {
         
         let huValues = self.raw
             .withUnsafeBytes {
-                Array($0.bindMemory(to: Int16.self)).map(Int16.init(littleEndian:))
+                Array($0.bindMemory(to: Int16.self))
+                    .map(Int16.init(littleEndian:))
+                    .map {
+                        if $0 > 3071 {
+                            return Int16(255)
+                        }
+                        if $0 < -1024 {
+                            return Int16(0)
+                        }
+                        return $0
+                    }
             }
         
         var images: [UIImage] = []
