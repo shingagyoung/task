@@ -28,7 +28,7 @@ final class SeriesTableViewCell: UITableViewCell {
     func configure(with model: SeriesInfo) {
         self.model = model
         
-        self.seriesId.text = model.series.seriesNumber
+        self.seriesId.text = String(model.series.id)
         self.seriesDescription.text = model.series.seriesDescription
         self.numberOfDicomFiles.text = "\(model.series.numberOfDicomFiles)"
         self.dicomImageView.contentMode = .scaleAspectFit

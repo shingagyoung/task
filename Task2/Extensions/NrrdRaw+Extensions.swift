@@ -11,15 +11,18 @@ extension NrrdRaw {
     func convertNrrdToImage() throws -> [UIImage] {
         guard !self.raw.isEmpty else { return [] }
         
+        let min = -1024
+        let max = 3071
+
         let huValues = self.raw
             .withUnsafeBytes {
                 Array($0.bindMemory(to: Int16.self))
                     .map(Int16.init(littleEndian:))
                     .map {
-                        if $0 > 3071 {
+                        if $0 > max {
                             return Int16(255)
                         }
-                        if $0 < -1024 {
+                        if $0 < min {
                             return Int16(0)
                         }
                         return $0
