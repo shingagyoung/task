@@ -11,8 +11,8 @@ extension NrrdRaw {
     func convertNrrdToImage() throws -> [UIImage] {
         guard !self.raw.isEmpty else { return [] }
         
-        let min = -1024
-        let max = 3071
+        let min = 0
+        let max = 255
 
         let huValues = self.raw
             .withUnsafeBytes {
