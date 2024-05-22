@@ -80,7 +80,7 @@
                     </constraints>
                 </imageView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="4aq-SC-Wa4">
-                    <rect key="frame" x="92" y="155" width="37" height="45"/>
+                    <rect key="frame" x="10" y="155" width="200" height="45"/>
                 </activityIndicatorView>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZOb-Fl-2Po">
                     <rect key="frame" x="8" y="291" width="204" height="174"/>
@@ -179,17 +179,17 @@
                 <constraint firstItem="Ma7-h4-583" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="LVv-v9-Xrb"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hub-DU-Udh" secondAttribute="trailing" constant="10" id="N12-7P-Y5A"/>
                 <constraint firstItem="YvP-s6-Ach" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="Nca-lj-LOf"/>
+                <constraint firstItem="hub-DU-Udh" firstAttribute="leading" secondItem="4aq-SC-Wa4" secondAttribute="trailing" constant="10" id="Nkg-ff-tTX"/>
                 <constraint firstItem="ZOb-Fl-2Po" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="SBe-B0-MZO"/>
                 <constraint firstItem="hub-DU-Udh" firstAttribute="leading" secondItem="Ma7-h4-583" secondAttribute="trailing" constant="10" id="Y7C-hk-wru"/>
                 <constraint firstItem="Ma7-h4-583" firstAttribute="top" secondItem="YvP-s6-Ach" secondAttribute="bottom" constant="10" id="YFR-7A-OTe"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="YvP-s6-Ach" secondAttribute="trailing" constant="10" id="bcc-qw-foj"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ZOb-Fl-2Po" secondAttribute="bottom" constant="10" id="d4B-Bs-ZWi"/>
                 <constraint firstItem="ZOb-Fl-2Po" firstAttribute="top" secondItem="Ma7-h4-583" secondAttribute="bottom" constant="10" id="e6F-NW-AV1"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4aq-SC-Wa4" secondAttribute="trailing" constant="554" id="ifI-TC-pkV"/>
-                <constraint firstItem="4aq-SC-Wa4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="92" id="mXn-L9-v9o"/>
                 <constraint firstItem="JSG-az-5Pi" firstAttribute="leading" secondItem="Ma7-h4-583" secondAttribute="trailing" constant="10" id="mf0-P2-1lr"/>
                 <constraint firstItem="hub-DU-Udh" firstAttribute="top" secondItem="YvP-s6-Ach" secondAttribute="bottom" constant="10" id="pcN-uP-XiM"/>
                 <constraint firstAttribute="trailing" secondItem="JSG-az-5Pi" secondAttribute="trailing" constant="10" id="rDk-KR-cdj"/>
+                <constraint firstItem="4aq-SC-Wa4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="t3R-5G-UVG"/>
                 <constraint firstItem="ZOb-Fl-2Po" firstAttribute="top" secondItem="4aq-SC-Wa4" secondAttribute="bottom" constant="91" id="tHN-z9-cbE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
