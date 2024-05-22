@@ -6,15 +6,13 @@
 //
 
 import UIKit
-import OSLog
 
-struct ImageConverter {
-    
-    static func convertNrrdToImage(from nrrdRaw: NrrdRaw) throws -> [UIImage] {
-
+extension NrrdRaw {
+    func convertNrrdToImage() throws -> [UIImage] {
+        
         var images: [UIImage] = []
-        let dataSize = nrrdRaw.getSizes()
-        let readable = ReadableData(nrrdRaw.raw)
+        let dataSize = self.getSizes()
+        let readable = ReadableData(self.raw)
         
         // Nrrd Raw 데이터를 [[UInt16]] type으로 변환.
         for _ in 0..<Int(dataSize.z) {
@@ -28,7 +26,7 @@ struct ImageConverter {
                 pixelData.append(byteLine)
             }
             // [[UInt16]]를 [UIImage]로 변환.
-            guard let img = ImageConverter.convertUInt16ToImage(from: pixelData) else {
+            guard let img = UIImage.convertUInt16ToImage(from: pixelData) else {
                 throw DicomError.imageError
             }
             images.append(img)
@@ -36,9 +34,13 @@ struct ImageConverter {
         
         return images
     }
+}
+
+extension UIImage {
     
     // Convert [[UInt16]] to UIImage.
-    static private func convertUInt16ToImage(from pixelData: [[UInt16]]) -> UIImage? {
+    static func convertUInt16ToImage(from pixelData: [[UInt16]]) -> UIImage? {
+        guard !pixelData.isEmpty else { return nil }
         let data = NSMutableData()
 
         // pixelData에 있는 [UInt16]을 데이터로 변환 (2D array to 1D array)
@@ -67,5 +69,4 @@ struct ImageConverter {
         
         return UIImage(cgImage: cgImage)
     }
-
 }
