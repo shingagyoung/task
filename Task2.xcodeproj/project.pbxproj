@@ -38,9 +38,10 @@
 		DAB422782BF1D578005CAE27 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422762BF1D578005CAE27 /* Types.swift */; };
 		DAB4227C2BF1D5F0005CAE27 /* GZIP in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4227B2BF1D5F0005CAE27 /* GZIP */; };
 		DAB422802BF1D793005CAE27 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4227F2BF1D793005CAE27 /* String.swift */; };
-		DAB422DA2BF6E5C3005CAE27 /* ImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D92BF6E5C3005CAE27 /* ImageConverter.swift */; };
+		DAB422DA2BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */; };
 		DAB422DC2BF70C43005CAE27 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DB2BF70C43005CAE27 /* CacheManager.swift */; };
 		DAB422DD2BF7412B005CAE27 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */; };
+		DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,8 +97,9 @@
 		DAB422762BF1D578005CAE27 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		DAB4227F2BF1D793005CAE27 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
-		DAB422D92BF6E5C3005CAE27 /* ImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConverter.swift; sourceTree = "<group>"; };
+		DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdRaw+Extensions.swift"; sourceTree = "<group>"; };
 		DAB422DB2BF70C43005CAE27 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				DA7C25B62BEB1789008DCFDC /* AppConstants.swift */,
-				DAB422D92BF6E5C3005CAE27 /* ImageConverter.swift */,
 				DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */,
 			);
 			path = Utils;
@@ -188,6 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */,
+				DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */,
+				DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,8 +417,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB422DA2BF6E5C3005CAE27 /* ImageConverter.swift in Sources */,
+				DAB422DA2BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift in Sources */,
 				DAB422742BF1D572005CAE27 /* Logger.swift in Sources */,
+				DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */,
 				DAB422702BF1D572005CAE27 /* NrrdRaw.swift in Sources */,
 				DAB422DD2BF7412B005CAE27 /* AppLogger.swift in Sources */,
 				DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */,
