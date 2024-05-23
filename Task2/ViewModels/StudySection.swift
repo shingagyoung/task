@@ -40,7 +40,7 @@ final class SeriesInfo {
         self.nrrdRaw = try await NrrdRaw.loadAsync(url)
     }
     
-    func fetchDicomImage(plane: AnatomicalPlane) {
+    func fetchDicomImage(plane: AnatomicalPlane) async {
         guard let nrrdData = self.nrrdRaw else { return }
         do {
             let images = try nrrdData.convertToImages(plane: plane)
