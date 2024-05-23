@@ -1,6 +1,6 @@
 import Foundation
 
-public class NrrdHeader {
+public class NrrdHeader: Codable {
     static let VERSION = 4
     static let NRRD_PREFIX = "NRRD00"
 

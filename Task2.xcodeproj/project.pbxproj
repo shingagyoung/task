@@ -42,6 +42,7 @@
 		DAB422DC2BF70C43005CAE27 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DB2BF70C43005CAE27 /* CacheManager.swift */; };
 		DAB422DD2BF7412B005CAE27 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */; };
 		DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */; };
+		DAB422EA2BFEBCF4005CAE27 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdRaw+Extensions.swift"; sourceTree = "<group>"; };
 		DAB422DB2BF70C43005CAE27 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */,
 				DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */,
 				DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */,
+				DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				DAB422732BF1D572005CAE27 /* BinaryReader.swift in Sources */,
 				DA7C25B72BEB1789008DCFDC /* AppConstants.swift in Sources */,
 				DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */,
+				DAB422EA2BFEBCF4005CAE27 /* String+Extensions.swift in Sources */,
 				DAB422772BF1D578005CAE27 /* NrrdUtil.swift in Sources */,
 				DAB4226F2BF1D572005CAE27 /* Errors.swift in Sources */,
 				DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */,

@@ -36,15 +36,47 @@ final class SeriesInfo {
         guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
-        let nrrdData = try await NrrdRaw.loadAsync(url)
-        self.images = try nrrdData.convertNrrdToImage() 
+        
+        let directory = try self.getFileDirectory(of: series)
+        
+        // Local에 저장된 data가 있는 지 확인.
+        guard FileManager.default.fileExists(atPath: directory.path()) else {
+            let nrrdData = try await NrrdRaw.loadAsync(url)
+            try JSONEncoder().encode(nrrdData).write(to: directory)
+            self.images = try nrrdData.convertNrrdToImage()
+
+            return
+        }
+        
+        let data = try Data(contentsOf: directory)
+        let cached = try JSONDecoder().decode(NrrdRaw.self, from: data)
+
+        self.images = try cached.convertNrrdToImage()
     }
     
+    /// Series 저장할 local directory url 반환.
+    private func getFileDirectory(of data: Series) throws -> URL {
+        guard var directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            throw FileManagerError.directoryNotFound
+        }
+        
+        guard let fileName = series.volumeFilePath.getNrrdFileName() else {
+            throw DicomError.wrongNameFormat
+        }
+        
+        directory.append(path: "\(fileName).txt")
+        return directory
+    }
+}
+
+enum FileManagerError: Error {
+    case directoryNotFound
 }
 
 enum DicomError: Error {
     case wrongFilePath
+    case wrongNameFormat
     case imageError
     case keyNotFound
 }
- 
+

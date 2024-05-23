@@ -6,15 +6,12 @@
 //
 
 import UIKit
+import OSLog
 
 extension NrrdRaw {
-    func convertNrrdToImage() throws -> [UIImage] {
-        guard !self.raw.isEmpty else { return [] }
-        
-        let min = 0
-        let max = 255
-
-        let grayScales = self.raw
+    
+    private func clampData(min: Int, max: Int) throws -> [Int16] {
+        return self.raw
             .withUnsafeBytes {
                 Array($0.bindMemory(to: Int16.self))
                     .map(Int16.init(littleEndian:))
@@ -28,6 +25,15 @@ extension NrrdRaw {
                         return $0
                     }
             }
+    }
+    
+    func convertNrrdToImage() throws -> [UIImage] {
+        guard !self.raw.isEmpty else { return [] }
+        
+        // Grayscale로 clamping.
+        let min = 0
+        let max = 255
+        let grayScales = try self.clampData(min: min, max: max)
         
         var images: [UIImage] = []
         let dataSize = self.getSizes()
@@ -48,6 +54,7 @@ extension NrrdRaw {
             
             images.append(imageSlice)
         }
+
         return images
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 import GZIP
 
-public class NrrdRaw {
+public class NrrdRaw: Codable {
     public private(set) var header: NrrdHeader
 
     // 배열을 사용하면 생성자에서 배열을 복사하는 시간이 오래 걸려서 Data 타입을 사용
