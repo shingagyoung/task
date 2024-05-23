@@ -43,15 +43,15 @@ final class SeriesTableViewCell: UITableViewCell {
         Task {
             do {
                 self.loadIndicator.startAnimating()
-                try await model.fetchDicomImage()
+                defer { self.loadIndicator.stopAnimating() }
                 
+                try await model.fetchDicomImage()
                 self.dicomImageView.image = model.images.first
                 self.setSlider(with: model.images)
             }
             catch {
                 Logger.network.error("\(error)")
             }
-            self.loadIndicator.stopAnimating()
         }
         
     }
