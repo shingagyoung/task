@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 enum AnatomicalPlane {
     case axial, sagittal, coronal
@@ -27,9 +28,9 @@ extension NrrdRaw {
     }
     
     func convertToImages(plane: AnatomicalPlane) throws -> [UIImage] {
-        let min = Int16(self.header.wl - self.header.ww) / 2
-        let max = Int16(self.header.wl + self.header.ww) / 2
-        
+        let min = Int16(self.header.wl - self.header.ww / 2)
+        let max = Int16(self.header.wl + self.header.ww / 2)
+
         // [UInt8] -> [Int16]
         let normalized = try self.clampAndNormalize(range: (min, max))
         

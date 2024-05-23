@@ -59,27 +59,6 @@ final class SeriesInfo {
         }
     }
     
-    /*
-    func fetchDicomImage() async throws {
-        guard let originUrl = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
-            throw DicomError.wrongFilePath
-        }
-        
-        let file = try self.getFileUrl(of: series)
-
-        guard FileManager.default.fileExists(atPath: file.path()) else {
-            let nrrdData = try await NrrdRaw.loadAsync(originUrl)
-            try setNrrdCache(of: originUrl, to: file)
-            self.images = try nrrdData.convertNrrdToImage()
-         
-            return
-        }
-        
-        let data = try Data(contentsOf: file)
-        self.images = try await NrrdRaw.loadAsync(file).convertNrrdToImage()
-    }
-*/
-    
     /// Series 저장할 local file url 반환.
     private func getFileUrl(of data: Series) throws -> URL {
         guard var directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
