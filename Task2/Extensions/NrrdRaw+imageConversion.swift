@@ -77,12 +77,11 @@ extension UIImage {
                 }
                 startIndex -= 1
                 
-            //TODO: coronal 이미지 orientation 수정하기.
             case .coronal:
-                var colStartIndex = startIndex
+                var colStartIndex = startIndex + (size.col * size.depth * size.row)
                 for _ in 0..<size.row {
                     singleImagePixelValues.append(contentsOf: huValues[colStartIndex..<colStartIndex+size.col])
-                    colStartIndex += (size.col * size.depth)
+                    colStartIndex -= (size.col * size.depth)
                 }
                 startIndex -= size.col
             }
