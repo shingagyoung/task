@@ -12,26 +12,61 @@ enum AnatomicalPlane {
 }
 
 extension NrrdRaw {
+    
+    typealias Range = (min: Int16, max: Int16)
+    
+    private enum ColorSystem {
+        case grayScale
+        
+        var value: Int {
+            switch self {
+            case .grayScale:
+                return 255
+            }
+        }
+    }
+    
     func convertToImages(plane: AnatomicalPlane) throws -> [UIImage] {
-        let minValue = self.header.wl - self.header.ww / 2
-        let maxValue = self.header.wl + self.header.ww / 2
+        let min = Int16(self.header.wl - self.header.ww) / 2
+        let max = Int16(self.header.wl + self.header.ww) / 2
         
         // [UInt8] -> [Int16]
-        let data = self.raw
+        let normalized = try self.clampAndNormalize(range: (min, max))
+        
+        let size = self.getSizes().arrange(as: plane)
+        
+        return UIImage.makeImages(from: normalized,
+                                  size: size,
+                                  plane: plane)
+    }
+    
+    private func clampAndNormalize(range: Range) throws -> [Int16] {
+        return self.raw
             .withUnsafeBytes {
                 Array($0.bindMemory(to: Int16.self))
                     .map(Int16.init(littleEndian:))
                     .map {
-                        if $0 > maxValue { return Int16(255) }
-                        if $0 < minValue { return Int16(0) }
-                        return $0
+                        var val = $0
+                        if $0 > range.max {
+                            val = Int16(range.max)
+                        }
+                        if $0 < range.min {
+                            val = Int16(range.min)
+                        }
+                        return NrrdRaw.normalize(
+                            range: range,
+                            value: val
+                        )
                     }
             }
+    }
+    
+    static private func normalize(as system: ColorSystem = .grayScale,
+                                  range: Range,
+                                  value: Int16) -> Int16 {
         
-        let size = self.getSizes().arrange(as: plane)
-        return UIImage.makeImages(from: data,
-                                  size: size,
-                                  plane: plane)
+        let calculated = Double(value-range.min) / Double(range.max-range.min) * Double(system.value)
+        return Int16(calculated)
     }
 }
 
@@ -60,20 +95,20 @@ extension UIImage {
             
             switch plane {
             case .axial:
-                let sliceLength = size.row * size.col //TODO: 위치 확인
+                let sliceLength = size.row * size.col
                 singleImagePixelValues = Array(huValues[startIndex..<startIndex+sliceLength])
                 startIndex += sliceLength
                 
             case .sagittal:
-                var rowStartIndex = size.depth * size.col * (size.row-1) + startIndex
+                var colStartIndex = size.depth * size.col * (size.row-1) + startIndex
                 for _ in 0..<size.row {
                     var rowData: [Int16] = []
                     
                     for c in 0..<size.col {
-                        rowData.append(huValues[rowStartIndex + size.depth * c])
+                        rowData.append(huValues[colStartIndex + size.depth * c])
                     }
                     singleImagePixelValues.append(contentsOf: rowData)
-                    rowStartIndex -= size.depth * size.col
+                    colStartIndex -= size.depth * size.col
                 }
                 startIndex -= 1
                 
@@ -81,7 +116,7 @@ extension UIImage {
                 var colStartIndex = startIndex + (size.col * size.depth * size.row)
                 for _ in 0..<size.row {
                     singleImagePixelValues.append(contentsOf: huValues[colStartIndex..<colStartIndex+size.col])
-                    colStartIndex -= (size.col * size.depth)
+                    colStartIndex -= size.col * size.depth
                 }
                 startIndex -= size.col
             }
