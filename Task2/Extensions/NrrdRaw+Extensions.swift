@@ -17,10 +17,10 @@ extension NrrdRaw {
                     .map(Int16.init(littleEndian:))
                     .map {
                         if $0 > max {
-                            return Int16(255)
+                            return Int16(max)
                         }
                         if $0 < min {
-                            return Int16(0)
+                            return Int16(min)
                         }
                         return $0
                     }

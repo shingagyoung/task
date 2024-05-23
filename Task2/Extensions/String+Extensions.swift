@@ -8,11 +8,7 @@
 import Foundation
 
 extension String {
-    func getNrrdFileName() -> String? {
-        let parts = self.split(separator: "/")
-        guard parts.count >= 4 else { return nil }
-        
-        // "yyyy/mm/dd/xxxx/x.nrrd" 형식의 파일 이름을 "/"로 나누고 "dd" 바로 다음 값 추출.
-        return String(parts[3])
+    var fileName: String {
+        return NSString(string: self).lastPathComponent
     }
 }
