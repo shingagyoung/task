@@ -33,6 +33,7 @@ final class SeriesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setWindowSlider()
+        self.loadIndicator.hidesWhenStopped = true
         self.planeSelector.addTarget(
             self,
             action: #selector(segmentDidChange(_:)),
@@ -56,40 +57,35 @@ final class SeriesTableViewCell: UITableViewCell {
         self.seriesId.text = String(model.series.id)
         self.seriesDescription.text = model.series.seriesDescription
         self.numberOfDicomFiles.text = "\(model.series.numberOfDicomFiles)"
-        self.loadIndicator.hidesWhenStopped = true
         
-        Task {
-            do {
-                try await model.loadNrrdData()
-                guard let nrrd = model.nrrdRaw else { return }
-                self.setInitialWWLValues(with: nrrd.header)
+        guard let nrrd = model.nrrdRaw else {
+            Task {
+                do {
+                    self.loadIndicator.startAnimating()
+                    defer { self.loadIndicator.stopAnimating() }
+                    
+                    try await model.loadNrrdData()
+                    self.setInitialWWLValues(with: model.nrrdRaw!.header)
+                    
+                    model.fetchDicomImage(plane: .axial)
+                    self.dicomImageView.image = model.axialImages.first
+                    self.setDicomSlider(with: model.axialImages)
+                }
+                catch {
+                    Logger.network.error("\(error)")
+                }
             }
-            catch {
-                Logger.network.error("\(error)")
-            }
+            return
         }
+        
+        self.setInitialWWLValues(with: nrrd.header)
         
         guard model.axialImages.isEmpty else {
             self.dicomImageView.image = model.axialImages.first
             self.setDicomSlider(with: model.axialImages)
             return
         }
-        
-        Task {
-            do {
-                self.loadIndicator.startAnimating()
-                defer { self.loadIndicator.stopAnimating() }
-                try await model.fetchDicomImage()
-                
-                self.dicomImageView.image = model.axialImages.first
-                self.setDicomSlider(with: model.axialImages)
-                self.loadIndicator.stopAnimating()
-            }
-            catch {
-                Logger.network.error("\(error)")
-            }
-        }
-        
+   
     }
     
     private func setInitialWWLValues(with header: NrrdHeader) {
@@ -158,26 +154,39 @@ extension SeriesTableViewCell {
     
     @objc
     private func segmentDidChange(_ selector: UISegmentedControl) {
-        guard let model = self.model else { return }
-        switch selector.selectedSegmentIndex {
-        case 0:
-            guard !model.axialImages.isEmpty else { return }
-            self.dicomImageView.image = model.axialImages[0]
-            self.currentSegment = .axial
-            self.setDicomSlider(with: model.axialImages)
-        case 1:
-            guard !model.sagittalImages.isEmpty else { return }
-            self.dicomImageView.image = model.sagittalImages[0]
-            self.currentSegment = .sagittal
-            self.setDicomSlider(with: model.sagittalImages)
-        case 2:
-            guard !model.coronalImages.isEmpty else { return }
-            self.dicomImageView.image = model.coronalImages[0]
-            self.currentSegment = .coronal
-            self.setDicomSlider(with: model.coronalImages)
-        default:
-            return
-        }
+
+        guard let model = self.model,
+              let _ = model.nrrdRaw else { return }
+   
+            switch selector.selectedSegmentIndex {
+            case 0:
+                if model.axialImages.isEmpty {
+                    model.fetchDicomImage(plane: .axial)
+                }
+                self.dicomImageView.image = model.axialImages[0]
+                self.currentSegment = .axial
+                self.setDicomSlider(with: model.axialImages)
+                
+            case 1:
+                if model.sagittalImages.isEmpty {
+                    model.fetchDicomImage(plane: .sagittal)
+                }
+                self.dicomImageView.image = model.sagittalImages[0]
+                self.currentSegment = .sagittal
+                self.setDicomSlider(with: model.sagittalImages)
+                
+            case 2:
+                if model.coronalImages.isEmpty {
+                    model.fetchDicomImage(plane: .coronal)
+                }
+                self.dicomImageView.image = model.coronalImages[0]
+                self.currentSegment = .coronal
+                self.setDicomSlider(with: model.coronalImages)
+                
+            default:
+                return
+            }
+        
     }
     
     @objc

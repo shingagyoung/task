@@ -25,9 +25,9 @@ final class StudySection {
 final class SeriesInfo {
     let series: Series
     var nrrdRaw: NrrdRaw?
-    var axialImages: [UIImage] = []
-    var sagittalImages: [UIImage] = []
-    var coronalImages: [UIImage] = []
+    private(set) var axialImages: [UIImage] = []
+    private(set) var sagittalImages: [UIImage] = []
+    private(set) var coronalImages: [UIImage] = []
     
     init(series: Series) {
         self.series = series
@@ -40,6 +40,26 @@ final class SeriesInfo {
         self.nrrdRaw = try await NrrdRaw.loadAsync(url)
     }
     
+    func fetchDicomImage(plane: AnatomicalPlane) {
+        guard let nrrdData = self.nrrdRaw else { return }
+        do {
+            let images = try nrrdData.convertToImages(plane: plane)
+            
+            switch plane {
+            case .axial:
+                self.axialImages = images
+            case .sagittal:
+                self.sagittalImages = images
+            case .coronal:
+                self.coronalImages = images
+            }
+        }
+        catch {
+            Logger().error("Error -- \(error)")
+        }
+    }
+    
+    /*
     func fetchDicomImage() async throws {
         guard let originUrl = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
@@ -58,6 +78,7 @@ final class SeriesInfo {
         let data = try Data(contentsOf: file)
         self.images = try await NrrdRaw.loadAsync(file).convertNrrdToImage()
     }
+*/
     
     /// Series 저장할 local file url 반환.
     private func getFileUrl(of data: Series) throws -> URL {
