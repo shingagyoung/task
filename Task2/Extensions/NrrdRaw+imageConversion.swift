@@ -52,16 +52,16 @@ extension UIImage {
         case .sagittal:
             startIndex = size.depth
         case .coronal:
-            startIndex = 0
+            startIndex = size.col * (size.depth-1)
         }
         
         for _ in 0..<size.depth {
-            var singleImageHuValues: [Int16] = []
+            var singleImagePixelValues: [Int16] = []
             
             switch plane {
             case .axial:
                 let sliceLength = size.row * size.col //TODO: 위치 확인
-                singleImageHuValues = Array(huValues[startIndex..<startIndex+sliceLength])
+                singleImagePixelValues = Array(huValues[startIndex..<startIndex+sliceLength])
                 startIndex += sliceLength
                 
             case .sagittal:
@@ -72,24 +72,24 @@ extension UIImage {
                     for c in 0..<size.col {
                         rowData.append(huValues[rowStartIndex + size.depth * c])
                     }
-                    singleImageHuValues.append(contentsOf: rowData)
+                    singleImagePixelValues.append(contentsOf: rowData)
                     rowStartIndex -= size.depth * size.col
                 }
                 startIndex -= 1
                 
             //TODO: coronal 이미지 orientation 수정하기.
             case .coronal:
-                var rowStartIndex = startIndex
+                var colStartIndex = startIndex
                 for _ in 0..<size.row {
-                    singleImageHuValues.append(contentsOf: huValues[rowStartIndex..<rowStartIndex+size.col])
-                    rowStartIndex += (size.col * size.depth)
+                    singleImagePixelValues.append(contentsOf: huValues[colStartIndex..<colStartIndex+size.col])
+                    colStartIndex += (size.col * size.depth)
                 }
-                startIndex += size.col
+                startIndex -= size.col
             }
             
             // Convert to a single image.
             guard let imageSlice = UIImage(
-                huValues: singleImageHuValues,
+                huValues: singleImagePixelValues,
                 size: size)
             else { return [] }
             images.append(imageSlice)
