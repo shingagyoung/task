@@ -16,6 +16,10 @@ extension NrrdHeader {
         return -1024
     }
     
+    var wwl: WWL {
+        WWL(w: ww, l: wl)
+    }
+    
     public var ww: Int {
         guard let value = key_value["WindowWidth"] else { return minWidth }
         let intArray = value.components(separatedBy: "\\\\").map { Int($0)! }

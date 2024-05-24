@@ -24,13 +24,23 @@ final class StudySection {
 
 final class SeriesInfo {
     let series: Series
-    private(set) var nrrdRaw: NrrdRaw?
-    private(set) var axialImages: [UIImage] = []
-    private(set) var sagittalImages: [UIImage] = []
-    private(set) var coronalImages: [UIImage] = []
+    private(set) var nrrdRaw: NrrdRaw? {
+        didSet {
+            AnatomicalPlane.allCases.forEach {
+                self.currentWwls[$0] = WWL(w: nrrdRaw!.header.ww,
+                                           l: nrrdRaw!.header.wl)
+            }
+        }
+    }
+    private(set) var imageDictionary: [AnatomicalPlane: NSCache<NSString, NSArray>] = [:]
+    var currentWwls: [AnatomicalPlane: WWL] = [:]
     
     init(series: Series) {
         self.series = series
+        
+        AnatomicalPlane.allCases.forEach {
+            self.imageDictionary[$0] = NSCache<NSString, NSArray>()
+        }
     }
     
     func loadNrrdData() async throws {
@@ -41,26 +51,23 @@ final class SeriesInfo {
     }
     
     func fetchDicomImage(plane: AnatomicalPlane,
-                         ww: Int,
-                         wl: Int) async {
-        guard let nrrdData = self.nrrdRaw else { return }
+                         wwl: WWL) async {
+        // Check cache
+        guard self.imageDictionary[plane]?.object(forKey: NSString(string: wwl.description)) == nil,
+              let nrrdData = self.nrrdRaw else { return }
+        
         do {
             let images = try nrrdData.convertToImages(plane: plane,
-                                                      ww: ww,
-                                                      wl: wl)
+                                                      wwl: wwl)
             
-            switch plane {
-            case .axial:
-                self.axialImages = images
-            case .sagittal:
-                self.sagittalImages = images
-            case .coronal:
-                self.coronalImages = images
-            }
+            self.imageDictionary[plane]?
+                .setObject(images as NSArray,
+                           forKey: NSString(string: wwl.description))
         }
         catch {
             Logger().error("Error -- \(error)")
         }
+        
     }
     
     /// Series 저장할 local file url 반환.
