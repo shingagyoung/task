@@ -178,6 +178,9 @@
                     <rect key="frame" x="605.33333333333337" y="463.66666666666669" width="67.666666666666629" height="34.333333333333314"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="tinted" title="Apply"/>
+                    <connections>
+                        <action selector="applyDidTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="icd-bb-Htz"/>
+                    </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vp2-Wg-4AU">
                     <rect key="frame" x="220" y="81" width="453" height="129"/>
@@ -228,6 +231,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="applyButton" destination="xa8-wy-fXj" id="f8E-DI-xon"/>
                 <outlet property="dicomImageSlider" destination="ZOb-Fl-2Po" id="SeZ-1D-Frn"/>
                 <outlet property="dicomImageView" destination="Ma7-h4-583" id="OjP-cb-oDe"/>
                 <outlet property="levelSlider" destination="9No-0p-ISt" id="9ia-qq-nQT"/>
@@ -245,7 +249,7 @@
     </objects>
     <resources>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

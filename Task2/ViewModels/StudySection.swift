@@ -24,7 +24,7 @@ final class StudySection {
 
 final class SeriesInfo {
     let series: Series
-    var nrrdRaw: NrrdRaw?
+    private(set) var nrrdRaw: NrrdRaw?
     private(set) var axialImages: [UIImage] = []
     private(set) var sagittalImages: [UIImage] = []
     private(set) var coronalImages: [UIImage] = []
@@ -40,10 +40,14 @@ final class SeriesInfo {
         self.nrrdRaw = try await NrrdRaw.loadAsync(url)
     }
     
-    func fetchDicomImage(plane: AnatomicalPlane) async {
+    func fetchDicomImage(plane: AnatomicalPlane,
+                         ww: Int,
+                         wl: Int) async {
         guard let nrrdData = self.nrrdRaw else { return }
         do {
-            let images = try nrrdData.convertToImages(plane: plane)
+            let images = try nrrdData.convertToImages(plane: plane,
+                                                      ww: ww,
+                                                      wl: wl)
             
             switch plane {
             case .axial:

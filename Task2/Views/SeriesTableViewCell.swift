@@ -22,14 +22,11 @@ final class SeriesTableViewCell: UITableViewCell {
     @IBOutlet weak var levelSlider: UISlider!
     @IBOutlet weak var widthValueLabel: UILabel!
     @IBOutlet weak var levelValueLabel: UILabel!
+    @IBOutlet weak var applyButton: UIButton!
     
-    //NOTE: SeriesInfo class 사용하지말고 member 변수로 [UIImage]를 두는 방식 고려해보기.
     private var model: SeriesInfo?
-    private var currentSegment: AnatomicalPlane = .axial
-    private var wwlMinValue: Int = 0
-    private var wwlMaxValue: Int = 0
+    private var currentPlane: AnatomicalPlane = .axial
     
-    // - MARK: Cell initial set up
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setWindowSlider()
@@ -68,7 +65,9 @@ final class SeriesTableViewCell: UITableViewCell {
                     try await model.loadNrrdData()
                     self.setInitialWWLValues(with: model.nrrdRaw!.header)
                     
-                    await model.fetchDicomImage(plane: .axial)
+                    await model.fetchDicomImage(plane: .axial,
+                                                ww: model.nrrdRaw!.header.ww,
+                                                wl: model.nrrdRaw!.header.wl)
                     self.dicomImageView.image = model.axialImages.first
                     self.setDicomSlider(with: model.axialImages)
                 }
@@ -94,8 +93,6 @@ extension SeriesTableViewCell {
         self.widthSlider.value = Float(header.ww)
         self.levelValueLabel.text = String(header.wl)
         self.levelSlider.value = Float(header.wl)
-        
-        self.applyMinMax(width: header.ww, level: header.wl)
     }
     
     private func setDicomSlider(with images: [UIImage]) {
@@ -125,22 +122,49 @@ extension SeriesTableViewCell {
             for: .valueChanged
         )
     }
-    
-    private func applyMinMax(width: Int, level: Int) {
-        self.wwlMaxValue = level + width / 2
-        self.wwlMinValue = level - width / 2
-    }
 
+    private func changeImagesAndSlider(as plane: AnatomicalPlane) {
+        guard let model = self.model else { return }
+        switch plane {
+        case .axial:
+            self.currentPlane = .axial
+            self.dicomImageView.image = model.axialImages[0]
+            self.setDicomSlider(with: model.axialImages)
+            
+        case .sagittal:
+            self.currentPlane = .sagittal
+            self.dicomImageView.image = model.sagittalImages[0]
+            self.setDicomSlider(with: model.sagittalImages)
+            
+        case .coronal:
+            self.currentPlane = .coronal
+            self.dicomImageView.image = model.coronalImages[0]
+            self.setDicomSlider(with: model.coronalImages)
+        }
+    }
+    
 }
 
 // - MARK: Selector functions.
 extension SeriesTableViewCell {
+    @IBAction func applyDidTap(_ sender: Any) {
+        guard let model = self.model else { return }
+        Task {
+            self.loadIndicator.startAnimating()
+            await model.fetchDicomImage(plane: self.currentPlane,
+                                        ww: Int(self.widthValueLabel.text!)!,
+                                        wl: Int(self.levelValueLabel.text!)!)
+            
+            self.changeImagesAndSlider(as: self.currentPlane)
+            self.loadIndicator.stopAnimating()
+        }
+    }
     
     @objc
     private func sliderValueDidChange(_ selector: UISlider) {
         let index = Int(selector.value)
         guard let model = self.model else { return }
-        switch self.currentSegment {
+        switch self.currentPlane {
         case .axial:
             guard !model.axialImages.isEmpty else { return }
             self.dicomImageView.image = model.axialImages[index]
@@ -159,7 +183,10 @@ extension SeriesTableViewCell {
         self.loadIndicator.startAnimating()
 
         guard let model = self.model,
-              let _ = model.nrrdRaw else { return }
+              let nrrd = model.nrrdRaw else { return }
+        
+        let ww = nrrd.header.ww
+        let wl = nrrd.header.wl
         
         Task {
             defer { self.loadIndicator.stopAnimating() }
@@ -167,49 +194,42 @@ extension SeriesTableViewCell {
             switch selector.selectedSegmentIndex {
             case 0:
                 if model.axialImages.isEmpty {
-                    await model.fetchDicomImage(plane: .axial)
+                    await model.fetchDicomImage(plane: .axial,
+                                                ww: ww,
+                                                wl: wl)
                 }
-                self.dicomImageView.image = model.axialImages[0]
-                self.currentSegment = .axial
-                self.setDicomSlider(with: model.axialImages)
+                self.changeImagesAndSlider(as: .axial)
 
             case 1:
                 if model.sagittalImages.isEmpty {
-                    await model.fetchDicomImage(plane: .sagittal)
+                    await model.fetchDicomImage(plane: .sagittal,
+                                                ww: ww,
+                                                wl: wl)
                 }
-                self.dicomImageView.image = model.sagittalImages[0]
-                self.currentSegment = .sagittal
-                self.setDicomSlider(with: model.sagittalImages)
+                self.changeImagesAndSlider(as: .sagittal)
                 
             case 2:
                 if model.coronalImages.isEmpty {
-                    await model.fetchDicomImage(plane: .coronal)
+                    await model.fetchDicomImage(plane: .coronal,
+                                                ww: ww,
+                                                wl: wl)
                 }
-                self.dicomImageView.image = model.coronalImages[0]
-                self.currentSegment = .coronal
-                self.setDicomSlider(with: model.coronalImages)
+                self.changeImagesAndSlider(as: .coronal)
                 
             default:
                 return
             }
         }
+        
     }
     
     @objc
     private func widthDidChange(_ selector: UISlider) {
         self.widthValueLabel.text = String(Int(selector.value))
-        self.applyMinMax(
-            width: Int(self.widthValueLabel.text!)!/2,
-            level: Int(self.levelValueLabel.text!)!
-        )
     }
     
     @objc
     private func levelDidChange(_ selector: UISlider) {
         self.levelValueLabel.text = String(Int(selector.value))
-        self.applyMinMax(
-            width: Int(self.widthValueLabel.text!)!/2,
-            level: Int(self.levelValueLabel.text!)!
-        )
     }
 }
