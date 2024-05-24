@@ -33,34 +33,38 @@ final class SeriesInfo {
     }
     
     func fetchDicomImage() async throws {
-        guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
+        guard let originUrl = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
         
-        let directory = try self.getFilePath(of: series)
-        
-        // Local에 저장된 data가 있는 지 확인.
-        guard FileManager.default.fileExists(atPath: directory.path()) else {
-            let nrrdData = try await NrrdRaw.loadAsync(url)
-            try JSONEncoder().encode(nrrdData).write(to: directory)
+        let file = try self.getFileUrl(of: series)
+
+        guard FileManager.default.fileExists(atPath: file.path()) else {
+            let nrrdData = try await NrrdRaw.loadAsync(originUrl)
+            try setNrrdCache(of: originUrl, to: file)
             self.images = try nrrdData.convertNrrdToImage()
          
             return
         }
         
-        let data = try Data(contentsOf: directory)
-        let cached = try JSONDecoder().decode(NrrdRaw.self, from: data)
-
-        self.images = try cached.convertNrrdToImage()
+        let data = try Data(contentsOf: file)
+        self.images = try await NrrdRaw.loadAsync(file).convertNrrdToImage()
     }
     
     /// Series 저장할 local file url 반환.
-    private func getFilePath(of data: Series) throws -> URL {
+    private func getFileUrl(of data: Series) throws -> URL {
         guard var directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             throw FileManagerError.directoryNotFound
         }
-        directory.append(path: "\(series.volumeFilePath.fileName).txt")
+        directory.append(path: series.volumeFilePath.fileName)
         return directory
+    }
+    
+    /// Nrrd file caching.
+    private func setNrrdCache(of nrrdFile: URL, to cache: URL) throws {
+        guard NrrdUtil.isNrrdFile(nrrdFile) else { return }
+        let data = try Data(contentsOf: nrrdFile)
+        try data.write(to: cache)
     }
 }
 
