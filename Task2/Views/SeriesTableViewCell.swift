@@ -55,7 +55,7 @@ final class SeriesTableViewCell: UITableViewCell {
         self.numberOfDicomFiles.text = "\(model.series.numberOfDicomFiles)"
         self.planeSelector.selectedSegmentIndex = model.currentPlane.rawValue
         
-        guard let nrrd = model.nrrdRaw else {
+        guard let _ = model.nrrdRaw else {
             Task {
                 do {
                     self.loadIndicator.startAnimating()
