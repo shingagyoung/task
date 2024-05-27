@@ -22,9 +22,7 @@ final class DefaultNetworkService {
     }
     
     func execute<T:Decodable>(_ request: NetworkRequest) async throws -> T {
-        guard let urlRequest = self.request(from: request),
-              let urlString = urlRequest.url?.absoluteString
-        else {
+        guard let urlRequest = self.request(from: request) else {
             throw NetworkServiceError.wrongRequest
         }
         
