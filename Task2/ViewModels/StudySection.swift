@@ -33,6 +33,7 @@ final class SeriesInfo {
         }
     }
     private(set) var imageDictionary: [AnatomicalPlane: NSCache<NSString, NSArray>] = [:]
+    var currentPlane: AnatomicalPlane = .axial
     var currentWwls: [AnatomicalPlane: WWL] = [:]
     
     init(series: Series) {
@@ -44,12 +45,21 @@ final class SeriesInfo {
     }
     
     func loadNrrdData() async throws {
-        guard let url = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
+        guard let originUrl = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
-        self.nrrdRaw = try await NrrdRaw.loadAsync(url)
+        
+        let file = try self.getFileUrl(of: self.series)
+        
+        guard FileManager.default.fileExists(atPath: file.path()) else {
+            self.nrrdRaw = try await NrrdRaw.loadAsync(originUrl)
+            try self.setNrrdCache(of: originUrl, to: file)
+            return
+        }
+        
+        self.nrrdRaw = try await NrrdRaw.loadAsync(file)
     }
-    
+  
     func fetchDicomImage(plane: AnatomicalPlane,
                          wwl: WWL) async {
         // Check cache
@@ -57,8 +67,7 @@ final class SeriesInfo {
               let nrrdData = self.nrrdRaw else { return }
         
         do {
-            let images = try nrrdData.convertToImages(plane: plane,
-                                                      wwl: wwl)
+            let images = try nrrdData.convertToImages(plane: plane, wwl: wwl)
             
             self.imageDictionary[plane]?
                 .setObject(images as NSArray,

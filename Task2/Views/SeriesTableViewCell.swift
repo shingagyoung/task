@@ -25,7 +25,6 @@ final class SeriesTableViewCell: UITableViewCell {
     @IBOutlet weak var applyButton: UIButton!
     
     private var model: SeriesInfo?
-    private var currentPlane: AnatomicalPlane = .axial
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,6 +53,7 @@ final class SeriesTableViewCell: UITableViewCell {
         self.seriesId.text = String(model.series.id)
         self.seriesDescription.text = model.series.seriesDescription
         self.numberOfDicomFiles.text = "\(model.series.numberOfDicomFiles)"
+        self.planeSelector.selectedSegmentIndex = model.currentPlane.rawValue
         
         guard let nrrd = model.nrrdRaw else {
             Task {
@@ -62,11 +62,11 @@ final class SeriesTableViewCell: UITableViewCell {
                     defer { self.loadIndicator.stopAnimating() }
                     
                     try await model.loadNrrdData()
-                    self.setInitialWWLValues(with: model.nrrdRaw!.header)
+                    self.setWwlLabels(with: model.currentWwls[model.currentPlane]!)
                     
-                    await model.fetchDicomImage(plane: .axial,
-                                                wwl: model.nrrdRaw!.header.wwl)
-                    self.changeImagesAndSlider(as: .axial)
+                    await model.fetchDicomImage(plane: model.currentPlane,
+                                                wwl: model.currentWwls[model.currentPlane]!)
+                    self.changeImagesAndSlider(as: model.currentPlane)
                 }
                 catch {
                     Logger.network.error("\(error)")
@@ -75,9 +75,8 @@ final class SeriesTableViewCell: UITableViewCell {
             return
         }
         
-//        self.setInitialWWLValues(with: nrrd.header)
-        self.setWwlLabels(with: nrrd.header.wwl)
-        self.changeImagesAndSlider(as: .axial)
+        self.setWwlLabels(with: model.currentWwls[model.currentPlane]!)
+        self.changeImagesAndSlider(as: model.currentPlane)
     }
     
 }
@@ -89,13 +88,6 @@ extension SeriesTableViewCell {
         self.widthSlider.value = Float(value.w)
         self.levelValueLabel.text = String(value.l)
         self.levelSlider.value = Float(value.l)
-    }
-    
-    private func setInitialWWLValues(with header: NrrdHeader) {
-        self.widthValueLabel.text = String(header.ww)
-        self.widthSlider.value = Float(header.ww)
-        self.levelValueLabel.text = String(header.wl)
-        self.levelSlider.value = Float(header.wl)
     }
     
     private func setDicomSlider(with images: [UIImage]) {
@@ -144,13 +136,13 @@ extension SeriesTableViewCell {
         guard let model = self.model else { return }
         let selectedWwl = WWL(w: Int(self.widthValueLabel.text!)!,
                               l: Int(self.levelValueLabel.text!)!)
-        model.currentWwls[self.currentPlane] = selectedWwl
+        model.currentWwls[model.currentPlane] = selectedWwl
         
         Task {
             self.loadIndicator.startAnimating()
-            await model.fetchDicomImage(plane: self.currentPlane, wwl: selectedWwl)
+            await model.fetchDicomImage(plane: model.currentPlane, wwl: selectedWwl)
             
-            self.changeImagesAndSlider(as: self.currentPlane)
+            self.changeImagesAndSlider(as: model.currentPlane)
             self.loadIndicator.stopAnimating()
         }
     }
@@ -159,8 +151,8 @@ extension SeriesTableViewCell {
     private func sliderValueDidChange(_ selector: UISlider) {
         let index = Int(selector.value)
         guard let model = self.model,
-              let wwl = model.currentWwls[self.currentPlane],
-              let images = model.imageDictionary[self.currentPlane]?.object(forKey: wwl.description as NSString) as? [UIImage]
+              let wwl = model.currentWwls[model.currentPlane],
+              let images = model.imageDictionary[model.currentPlane]?.object(forKey: wwl.description as NSString) as? [UIImage]
         else { return }
         
         self.dicomImageView.image = images[index]
@@ -175,10 +167,10 @@ extension SeriesTableViewCell {
             self.loadIndicator.startAnimating()
             defer { self.loadIndicator.stopAnimating() }
             let plane = AnatomicalPlane(rawValue: selector.selectedSegmentIndex)!
-            self.currentPlane = plane
+            model.currentPlane = plane
             
             guard selector.selectedSegmentIndex < AnatomicalPlane.allCases.count,
-                  let wwl = model.currentWwls[self.currentPlane] else { return }
+                  let wwl = model.currentWwls[model.currentPlane] else { return }
             
             self.setWwlLabels(with: wwl)
             await model.fetchDicomImage(plane: plane, wwl: wwl)
