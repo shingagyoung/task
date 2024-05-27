@@ -30,6 +30,7 @@ final class SeriesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setWindowSlider()
+        self.planeSelector.apportionsSegmentWidthsByContent = true
         self.loadIndicator.hidesWhenStopped = true
         self.planeSelector.addTarget(
             self,

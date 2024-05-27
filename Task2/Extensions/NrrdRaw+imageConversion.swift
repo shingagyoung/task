@@ -30,14 +30,62 @@ extension NrrdRaw {
     func convertToImages(plane: AnatomicalPlane,
                          wwl: WWL) throws -> [UIImage] {
 
-        // [UInt8] -> [Int16]
+        guard !self.raw.isEmpty else { return [] }
         let normalized = try self.clampAndNormalize(range: (wwl.min, wwl.max))
-        
         let size = self.getSizes().arrange(as: plane)
+        var images: [UIImage] = []
         
-        return UIImage.makeImages(with: normalized,
-                                  size: size,
-                                  plane: plane)
+        var imageStartIndex = 0
+        switch plane {
+        case .axial:
+            imageStartIndex = 0
+        case .sagittal:
+            imageStartIndex = size.depth
+        case .coronal:
+            imageStartIndex = size.col * (size.depth-1)
+        }
+        
+        for _ in 0..<size.depth {
+            var singleImageData: [Int16] = []
+            
+            switch plane {
+            case .axial:
+                let sliceLength = size.row * size.col
+                singleImageData = Array(normalized[imageStartIndex..<imageStartIndex+sliceLength])
+                imageStartIndex += sliceLength
+                
+            case .sagittal:
+                var colStartIndex = size.depth * size.col * (size.row-1) + imageStartIndex
+                for _ in 0..<size.row {
+                    var rowData: [Int16] = []
+                    
+                    for col in 0..<size.col {
+                        rowData.append(normalized[colStartIndex + size.depth * col])
+                    }
+                    singleImageData.append(contentsOf: rowData)
+                    colStartIndex -= size.depth * size.col
+                }
+                imageStartIndex -= 1
+                
+            case .coronal:
+                var colStartIndex = imageStartIndex + (size.col * size.depth * size.row)
+                for _ in 0..<size.row {
+                    singleImageData.append(contentsOf: normalized[colStartIndex..<colStartIndex+size.col])
+                    colStartIndex -= size.col * size.depth
+                }
+                imageStartIndex -= size.col
+            }
+            
+            // Convert to a single image.
+            guard let imageSlice = UIImage(
+                grayScales: singleImageData,
+                size: size)
+            else { return [] }
+            images.append(imageSlice)
+        }
+       
+        return images
+
     }
     
     private func clampAndNormalize(range: Range) throws -> [Int16] {
@@ -68,4 +116,5 @@ extension NrrdRaw {
         let calculated = Double(value-range.min) / Double(range.max-range.min) * Double(system.value)
         return Int16(calculated)
     }
+    
 }
