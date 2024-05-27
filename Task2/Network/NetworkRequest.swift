@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum APIVersion: String {
+    case v2
+}
+
 enum APIResource: String {
     case dicom = "Dicom"
 }
@@ -24,27 +28,30 @@ final class NetworkRequest {
     let httpMethod: HTTPMethod
     private(set) var url: URL?
     
-    init(httpMethod: HTTPMethod,
+    init(apiVersion: APIVersion = .v2,
+         httpMethod: HTTPMethod,
          resource: APIResource,
          endpoint: EndPoint,
          pathComponents: [String] = [],
          queryItems: [URLQueryItem] = [])
     {
         self.httpMethod = httpMethod
-        self.url = self.makeUrl(httpMethod: httpMethod,
+        self.url = self.makeUrl(apiVersion: apiVersion,
+                                httpMethod: httpMethod,
                                 resource: resource,
                                 endpoint: endpoint,
                                 pathComponents: pathComponents,
                                 queryItems: queryItems)
     }
     
-    private func makeUrl(httpMethod: HTTPMethod,
+    private func makeUrl(apiVersion: APIVersion,
+                         httpMethod: HTTPMethod,
                          resource: APIResource,
                          endpoint: EndPoint,
                          pathComponents: [String],
                          queryItems: [URLQueryItem]) -> URL? {
         
-        guard var urlComponents = URLComponents(string: AppConstants.baseUrl) else { return nil }
+        guard var urlComponents = URLComponents(string: "\(AppConstants.baseUrl)/\(apiVersion.rawValue)") else { return nil }
         urlComponents.path.append("/\(resource.rawValue)/\(endpoint.rawValue)")
 
         pathComponents.forEach {

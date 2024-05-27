@@ -12,6 +12,9 @@ final class Task2Tests: XCTestCase {
     private var dicomStudyRequest: NetworkRequest!
     private var dicomStudyRequestWithQueryItems: NetworkRequest!
     private var dicomSeriesRequest: NetworkRequest!
+    private var cacheManager: CacheManager!
+    
+    private let nrrdUrl: URL = URL(string: "http://10.10.20.102:6080/dicom/2021/08/20/30000021081923435668600026257/1.3.12.2.1107.5.1.4.73230.30000021081923435668600026257.nrrd")!
     
     override func setUpWithError() throws {
         self.dicomStudyRequest = NetworkRequest(
@@ -34,6 +37,7 @@ final class Task2Tests: XCTestCase {
             pathComponents: ["3"]
         )
         
+        self.cacheManager = CacheManager.shared
     }
 
     override func tearDownWithError() throws {
@@ -67,6 +71,20 @@ final class Task2Tests: XCTestCase {
         XCTAssertTrue(mockResult.count == decodedData.count)
         XCTAssertNotNil(mockResult.first?.patientBirthDate)
         XCTAssertTrue(mockResult.first?.patientBirthDate == decodedData.first?.patientBirthDate)
+    }
+    
+    func testNrrd_isNrrdFile_shouldReturnTrue() throws {
+        let isNrrd = NrrdUtil.isNrrdFile(nrrdUrl)
+        XCTAssertTrue(isNrrd)
+    }
+   
+    func test_setAndRetrieve_shouldNotBeNil() {
+        self.cacheManager.setCache(type: .data,
+                                   key: nrrdUrl.absoluteString,
+                                   data: NSData())
+        let cached = self.cacheManager.retrieveCache(type: .data,
+                                                     key: nrrdUrl.absoluteString)
+        XCTAssertNotNil(cached)
     }
 }
 

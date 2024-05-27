@@ -27,7 +27,6 @@ final class DefaultNetworkService {
         }
         
         let result = try await self.session.data(for: urlRequest, delegate: nil)
-        
         return try JSONDecoder().decode(T.self, from: result.0)
     }
     

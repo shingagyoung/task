@@ -27,7 +27,7 @@ extension MainViewModel {
     func cellItem(at section: Int) -> StudySection {
         return self.studySections[section]
     }
-    
+ 
     private func convertStudyToStudySection(_ study: Study) -> StudySection {
         return StudySection(study: study)
     }
@@ -44,7 +44,7 @@ extension MainViewModel {
             }
         }
         catch {
-            Logger().log(level: .error, "Error -- \(error)")
+            Logger.network.error("\(error)")
         }
     }
     

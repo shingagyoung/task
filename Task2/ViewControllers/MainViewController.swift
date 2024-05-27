@@ -61,6 +61,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return self.viewModel.numberOfSections()
     }
     
+    // - MARK: UITableViewDelegate, UITableViewDataSource methods.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRows(at: section)
     }
@@ -93,18 +94,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let rowItem = self.viewModel.cellItem(at: indexPath.section)
         rowItem.isExpanded.toggle()
         
-        guard rowItem.isExpanded else {
+        guard rowItem.isExpanded,
+              rowItem.seriesList.isEmpty else {
             self.resultTableView.reloadSections(
                 [indexPath.section],
                 with: .automatic
             )
             return
         }
-        
+      
         Task {
             do {
                 let seriesList = try await self.viewModel.requestSeries(of:"\(rowItem.study.id)")
-                rowItem.seriesList = seriesList
+                
+                rowItem.seriesList = seriesList.map{
+                    SeriesInfo(series: $0)
+                }
                 
                 self.resultTableView.reloadSections(
                     [indexPath.section],
@@ -112,7 +117,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 )
             }
             catch {
-                appLogger.error("Error -- \(error)")
+                Logger.network.error("\(error)")
             }
         }
         
