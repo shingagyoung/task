@@ -140,10 +140,10 @@ extension SeriesTableViewCell {
         
         Task {
             self.loadIndicator.startAnimating()
-            await model.fetchDicomImage(plane: model.currentPlane, wwl: selectedWwl)
+            defer { self.loadIndicator.stopAnimating() }
             
+            await model.fetchDicomImage(plane: model.currentPlane, wwl: selectedWwl)
             self.changeImagesAndSlider(as: model.currentPlane)
-            self.loadIndicator.stopAnimating()
         }
     }
     
