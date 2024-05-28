@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/skiamacmini/task/server/server.csproj": {}
+    "/Users/skiamacmini/task/server/DicomServer/server.csproj": {}
   },
   "projects": {
-    "/Users/skiamacmini/task/server/server.csproj": {
+    "/Users/skiamacmini/task/server/DicomServer/server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/skiamacmini/task/server/server.csproj",
+        "projectUniqueName": "/Users/skiamacmini/task/server/DicomServer/server.csproj",
         "projectName": "server",
-        "projectPath": "/Users/skiamacmini/task/server/server.csproj",
+        "projectPath": "/Users/skiamacmini/task/server/DicomServer/server.csproj",
         "packagesPath": "/Users/skiamacmini/.nuget/packages/",
-        "outputPath": "/Users/skiamacmini/task/server/obj/",
+        "outputPath": "/Users/skiamacmini/task/server/DicomServer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/skiamacmini/.nuget/NuGet/NuGet.Config"

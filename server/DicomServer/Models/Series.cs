@@ -7,28 +7,29 @@ namespace DicomServer.Models
 {
     struct Series 
     {
-        int id { get; }
-        int dicomStudyId { get; }
-        string seriesInstanceUID { get; }
-        string seriesNumber { get; }
-        string modality { get; }
-        string seriesDateTime { get; }
-        string patientPosition { get; }
-        string acquisitionNumber { get; }
-        string ? scanningSequence { get; }
-        string bodyPartExamined { get; }
-        string seriesDescription { get; }
-        string rows { get; }
-        string columns { get; }
-        string pixelSpacing { get; }
-        string sliceThickness { get; }
-        string imageType { get; }
-        string imageOrientationPatient { get; }
-        int numberOfDicomFiles { get; }
-        string createdDateTime { get; }
-        string lastModifiedDateTime { get; }
-        string volumeFilePath { get; }
-        string ? tag { get; }
-        string ? memo { get; }
+        
+        public int id { get; }
+        public int dicomStudyId { get; }
+        public string seriesInstanceUID { get; }
+        public string seriesNumber { get; }
+        public string modality { get; }
+        public string seriesDateTime { get; }
+        public string patientPosition { get; }
+        public string acquisitionNumber { get; }
+        public string ? scanningSequence { get; }
+        public string bodyPartExamined { get; }
+        public string seriesDescription { get; }
+        public string rows { get; }
+        public string columns { get; }
+        public string pixelSpacing { get; }
+        public string sliceThickness { get; }
+        public string imageType { get; }
+        public string imageOrientationPatient { get; }
+        public int numberOfDicomFiles { get; }
+        public string createdDateTime { get; }
+        public string lastModifiedDateTime { get; }
+        public string volumeFilePath { get; }
+        public string ? tag { get; }
+        public string ? memo { get; }
     }
 }

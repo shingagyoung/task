@@ -7,21 +7,21 @@ namespace DicomServer.Models
 {
     public struct Study
     {
-        int id { get; }
-        string studyInstanceUID { get; }
-        string studyID { get; }
-        string studyDateTime { get; }
-        string studyDescription { get; }
-        string patientID { get; }
-        string patientName { get; }
-        string patientBirthDate { get; }
-        string patientSex { get; }
-        string ? referringPhysicianName { get; }
-        int numberOfSeries { get; }
-        string createdDateTime { get; }
-        string lastModifiedDateTime { get; }
-        string ? tag { get; }
-        string ? memo { get; }
+        public int id { get; }
+        public string studyInstanceUID { get; }
+        public string studyID { get; }
+        public string studyDateTime { get; }
+        public string studyDescription { get; }
+        public string patientID { get; }
+        public string patientName { get; }
+        public string patientBirthDate { get; }
+        public string patientSex { get; }
+        public string ? referringPhysicianName { get; }
+        public int numberOfSeries { get; }
+        public string createdDateTime { get; }
+        public string lastModifiedDateTime { get; }
+        public string ? tag { get; }
+        public string ? memo { get; }
 
     }
 }

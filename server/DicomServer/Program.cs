@@ -1,3 +1,6 @@
+using DicomServer.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.ObjectPool;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,15 @@ app.UseSwaggerUI( option => {
 });
 
 
-app.MapGet("/", () => "Hello World!");
+StudyDB study = new StudyDB {};
+SeriesDB series = new SeriesDB {};
+
+
+app.MapGet("/Dicom/Series", ([FromQuery(Name = "studyId")] long? id) => series.GetSeries(id));
+app.MapGet("/Dicom/Study", (
+    [FromQuery(Name = "filter")] string? filter,
+    [FromQuery(Name = "beginDate")] DateTime? beginDate,
+    [FromQuery(Name = "endDate")] DateTime? endDate,
+    [FromQuery(Name = "extFilter")] bool? extFilter) => study.GetStudies(filter, beginDate, endDate, extFilter));
 
 app.Run();
