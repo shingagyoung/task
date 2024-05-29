@@ -11,7 +11,7 @@ using Microsoft.VisualBasic;
 
 namespace DicomServer.Service
 {
-    class StudyService
+    public class StudyService
     {
 
         private List<Study> _study = new List<Study>() {

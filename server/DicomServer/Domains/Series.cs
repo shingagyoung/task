@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DicomServer.Domain
 {
-    struct Series 
+    public struct Series 
     {
         
         public int id { get; }

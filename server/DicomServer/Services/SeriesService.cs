@@ -7,13 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DicomServer.Service
 {
-    class SeriesService
+    public class SeriesService
     {
-        private List<Series> _series = new List<Series>() {
 
+        private List<Series> _series = new List<Series>() {
         };
 
-        public List<Series> GetSeries([FromQuery(Name = "studyId")] long? id) {
+        public List<Series> GetSeries(
+            [FromQuery(Name = "studyId")] long? id
+            ) {
             return _series.FindAll(series => series.id == id);
         }
 
