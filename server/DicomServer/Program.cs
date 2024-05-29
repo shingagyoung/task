@@ -49,4 +49,4 @@ app.UseSwaggerUI( option => {
 app.UseCors("AllowSpecificOrigin");
 app.MapControllers();
 
-app.Run();
+app.Run("http://10.10.20.136:6080");
