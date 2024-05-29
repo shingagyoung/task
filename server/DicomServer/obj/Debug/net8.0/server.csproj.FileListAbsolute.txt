@@ -64,3 +64,5 @@
 /Users/skiamacmini/task/server/DicomServer/obj/Debug/net8.0/server.pdb
 /Users/skiamacmini/task/server/DicomServer/obj/Debug/net8.0/server.genruntimeconfig.cache
 /Users/skiamacmini/task/server/DicomServer/obj/Debug/net8.0/ref/server.dll
+/Users/skiamacmini/task/server/DicomServer/bin/Debug/net8.0/Resources/series.json
+/Users/skiamacmini/task/server/DicomServer/bin/Debug/net8.0/Resources/study.json

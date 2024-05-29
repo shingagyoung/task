@@ -1,4 +1,5 @@
-using DicomServer.DTO;
+using DicomServer.Controller;
+using DicomServer.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ObjectPool;
 using Microsoft.OpenApi.Models;
@@ -17,9 +18,12 @@ app.UseSwaggerUI( option => {
 });
 
 
-StudyDB study = new StudyDB {};
-SeriesDB series = new SeriesDB {};
+StudyService study = new StudyService {};
+SeriesService series = new SeriesService {};
 
+
+DicomController controller = new DicomController(builder.Environment);
+controller.GetFile("study.json");
 
 app.MapGet("/Dicom/Series", ([FromQuery(Name = "studyId")] long? id) => series.GetSeries(id));
 app.MapGet("/Dicom/Study", (

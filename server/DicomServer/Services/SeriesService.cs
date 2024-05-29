@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DicomServer.Models;
+using DicomServer.Domain;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DicomServer.DTO
+namespace DicomServer.Service
 {
-    class SeriesDB
+    class SeriesService
     {
         private List<Series> _series = new List<Series>() {
 

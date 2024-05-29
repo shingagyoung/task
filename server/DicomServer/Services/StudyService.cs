@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DicomServer.Models;
+using System.Web;
+using DicomServer.Domain;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.VisualBasic;
 
-namespace DicomServer.DTO
+namespace DicomServer.Service
 {
-    class StudyDB
+    class StudyService
     {
+
         private List<Study> _study = new List<Study>() {
 
         };
