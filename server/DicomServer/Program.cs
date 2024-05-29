@@ -1,6 +1,8 @@
+using System.Text;
 using System.Text.Json;
 using DicomServer.Controller;
 using DicomServer.Domain;
+using DicomServer.Resources;
 using DicomServer.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ObjectPool;
@@ -11,14 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Make Swagger.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option => {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "DICOM API", Description = "DICOM 정보 제공을 위한 서버", Version = "v1"});
+    option.SwaggerDoc(Constants.appVersion, new OpenApiInfo { Title = Constants.swaggerTitle, Description = Constants.swaggerDesc, Version = Constants.appVersion});
 });
 
 // Read json files.
-string seriesFile = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "series.json");
+string seriesFile = Path.Combine(Directory.GetCurrentDirectory(), Constants.jsonDirectory, "series.json");
 string seriesString = File.ReadAllText(seriesFile);
 
-string studiesFile = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "study.json");
+string studiesFile = Path.Combine(Directory.GetCurrentDirectory(), Constants.jsonDirectory, "study.json");
 string studiesString = File.ReadAllText(studiesFile);
 
 // Deserialize the JSON file to a List<Series>
@@ -42,11 +44,12 @@ if (app.Environment.IsDevelopment())
 {
 app.UseSwagger();
 app.UseSwaggerUI( option => {
-    option.SwaggerEndpoint("/swagger/v1/swagger.json", "DICOM API V1");
+    option.SwaggerEndpoint(
+        $"/swagger/{Constants.appVersion}/swagger.json",
+        $"{Constants.swaggerTitle} {Constants.appVersion}"
+    );
 });
 }
 
-app.UseCors("AllowSpecificOrigin");
 app.MapControllers();
-
-app.Run("http://10.10.20.136:6080");
+app.Run(Constants.url);

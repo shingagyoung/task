@@ -11,7 +11,6 @@ namespace DicomServer.Controller
 {
     [ApiController]
     [Route("v2/[controller]")]
-    [EnableCors("AllowSpecificOrigin")]
     public class DicomController : ControllerBase
     {
         private readonly IWebHostEnvironment _env;
