@@ -8,28 +8,28 @@ namespace DicomServer.Domain
     public struct Series 
     {
         
-        public int id { get; }
-        public int dicomStudyId { get; }
-        public string seriesInstanceUID { get; }
-        public string seriesNumber { get; }
-        public string modality { get; }
-        public string seriesDateTime { get; }
-        public string patientPosition { get; }
-        public string acquisitionNumber { get; }
-        public string ? scanningSequence { get; }
-        public string bodyPartExamined { get; }
-        public string seriesDescription { get; }
-        public string rows { get; }
-        public string columns { get; }
-        public string pixelSpacing { get; }
-        public string sliceThickness { get; }
-        public string imageType { get; }
-        public string imageOrientationPatient { get; }
-        public int numberOfDicomFiles { get; }
-        public string createdDateTime { get; }
-        public string lastModifiedDateTime { get; }
-        public string volumeFilePath { get; }
-        public string ? tag { get; }
-        public string ? memo { get; }
+        public int id { get; set; }
+        public int dicomStudyId { get; set; }
+        public string seriesInstanceUID { get; set; }
+        public string seriesNumber { get; set; }
+        public string modality { get; set; }
+        public string seriesDateTime { get; set; }
+        public string patientPosition { get; set; }
+        public string acquisitionNumber { get; set; }
+        public string ? scanningSequence { get; set; }
+        public string bodyPartExamined { get; set; }
+        public string seriesDescription { get; set; }
+        public string rows { get; set; }
+        public string columns { get; set; }
+        public string pixelSpacing { get; set; }
+        public string sliceThickness { get; set; }
+        public string imageType { get; set; }
+        public string imageOrientationPatient { get; set; }
+        public int numberOfDicomFiles { get; set; }
+        public string createdDateTime { get; set; }
+        public string lastModifiedDateTime { get; set; }
+        public string volumeFilePath { get; set; }
+        public string ? tag { get; set; }
+        public string ? memo { get; set; }
     }
 }

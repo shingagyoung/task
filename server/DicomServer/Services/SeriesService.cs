@@ -10,13 +10,16 @@ namespace DicomServer.Service
     public class SeriesService
     {
 
-        private List<Series> _series = new List<Series>() {
-        };
+        private List<Series> _series;
+
+        public SeriesService(List<Series> series) {
+            _series = series;
+        }
 
         public List<Series> GetSeries(
             [FromQuery(Name = "studyId")] long? id
             ) {
-            return _series.FindAll(series => series.id == id);
+            return _series.FindAll(series => series.dicomStudyId == id);
         }
 
     }

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DicomServer.Controller
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("v2/[controller]")]
     [EnableCors("AllowSpecificOrigin")]
     public class DicomController : ControllerBase
     {
@@ -25,9 +25,9 @@ namespace DicomServer.Controller
 
         [HttpGet]
         [Route("Series")]
-        public ActionResult<List<Series>> GetSeries(long? id)
+        public ActionResult<List<Series>> GetSeries(long? studyId)
         {
-            var series = _seriesService.GetSeries(id);
+            var series = _seriesService.GetSeries(studyId);
 
             if (series is null)
             {
@@ -54,14 +54,6 @@ namespace DicomServer.Controller
             }
 
             return studies;
-        }
-
-        private IActionResult GetFile(string filename) 
-        {
-            string path = Path.Combine(_env.ContentRootPath, "Resources", filename);
-            string jsonString = System.IO.File.ReadAllText(path);
-
-            return Content(jsonString);
         }
 
     }
