@@ -31,10 +31,11 @@ extension NrrdRaw {
                          wwl: WWL) throws -> [UIImage] {
 
         guard !self.raw.isEmpty else { return [] }
-        let normalized = try self.clampAndNormalize(range: (wwl.min, wwl.max))
+        let normalized = self.clampAndNormalize(range: (wwl.min, wwl.max))
         let size = self.getSizes().arrange(as: plane)
         var images: [UIImage] = []
         
+        // Plane 종류에 따라 image 생성을 위한 연산 수행
         var imageStartIndex = 0
         switch plane {
         case .axial:
@@ -80,7 +81,7 @@ extension NrrdRaw {
             guard let imageSlice = UIImage(
                 grayScales: singleImageData,
                 size: size)
-            else { return [] }
+            else { throw SkiaError.error(msg: "Failed to initialize a grayscale image.") }
             images.append(imageSlice)
         }
        
@@ -88,7 +89,7 @@ extension NrrdRaw {
 
     }
     
-    private func clampAndNormalize(range: Range) throws -> [Int16] {
+    private func clampAndNormalize(range: Range) -> [Int16] {
         return self.raw
             .withUnsafeBytes {
                 Array($0.bindMemory(to: Int16.self))
