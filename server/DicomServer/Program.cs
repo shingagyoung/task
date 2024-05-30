@@ -29,10 +29,10 @@ List<Study> studies = JsonSerializer.Deserialize<List<Study>>(studiesString) ?? 
 
 
 // Add Controllers and their dependencies.
-builder.Services.AddScoped<StudyService>(provider => {
+builder.Services.AddTransient<StudyService>(provider => {
     return new StudyService(studies);
 });
-builder.Services.AddScoped<SeriesService>(provider => {
+builder.Services.AddTransient<SeriesService>(provider => {
     return new SeriesService(series);
 });
 builder.Services.AddControllers();
