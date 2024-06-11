@@ -38,10 +38,13 @@
 		DAB422782BF1D578005CAE27 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422762BF1D578005CAE27 /* Types.swift */; };
 		DAB4227C2BF1D5F0005CAE27 /* GZIP in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4227B2BF1D5F0005CAE27 /* GZIP */; };
 		DAB422802BF1D793005CAE27 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4227F2BF1D793005CAE27 /* String.swift */; };
-		DAB422DA2BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */; };
 		DAB422DC2BF70C43005CAE27 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DB2BF70C43005CAE27 /* CacheManager.swift */; };
 		DAB422DD2BF7412B005CAE27 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */; };
-		DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */; };
+		DAB422E22BFDB4F6005CAE27 /* NrrdHeader+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E12BFDB4F6005CAE27 /* NrrdHeader+Extensions.swift */; };
+		DAB422E42BFDC6F1005CAE27 /* UIImage+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E32BFDC6F1005CAE27 /* UIImage+init.swift */; };
+		DAB422E62BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E52BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift */; };
+		DAB422E82BFDC86D005CAE27 /* int3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E72BFDC86D005CAE27 /* int3+Extensions.swift */; };
+		DACE90782C002D4C00854AAB /* WWL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE90772C002D4C00854AAB /* WWL.swift */; };
 		DAB422EA2BFEBCF4005CAE27 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,9 +101,12 @@
 		DAB422762BF1D578005CAE27 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		DAB4227F2BF1D793005CAE27 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DAB422D62BF5D0B7005CAE27 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
-		DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdRaw+Extensions.swift"; sourceTree = "<group>"; };
 		DAB422DB2BF70C43005CAE27 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
-		DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		DAB422E12BFDB4F6005CAE27 /* NrrdHeader+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdHeader+Extensions.swift"; sourceTree = "<group>"; };
+		DAB422E32BFDC6F1005CAE27 /* UIImage+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+init.swift"; sourceTree = "<group>"; };
+		DAB422E52BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdRaw+imageConversion.swift"; sourceTree = "<group>"; };
+		DAB422E72BFDC86D005CAE27 /* int3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "int3+Extensions.swift"; sourceTree = "<group>"; };
+		DACE90772C002D4C00854AAB /* WWL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWL.swift; sourceTree = "<group>"; };
 		DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +141,7 @@
 			children = (
 				DA7C25AC2BEB06BC008DCFDC /* Study.swift */,
 				DA7C25AE2BEB087E008DCFDC /* Series.swift */,
+				DACE90772C002D4C00854AAB /* WWL.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,8 +198,10 @@
 			isa = PBXGroup;
 			children = (
 				DA7C25D22BEDA9FE008DCFDC /* UITableViewCell+identifier.swift */,
-				DAB422D92BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift */,
-				DAB422DF2BFD7833005CAE27 /* UIImage+Extensions.swift */,
+				DAB422E12BFDB4F6005CAE27 /* NrrdHeader+Extensions.swift */,
+				DAB422E32BFDC6F1005CAE27 /* UIImage+init.swift */,
+				DAB422E52BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift */,
+				DAB422E72BFDC86D005CAE27 /* int3+Extensions.swift */,
 				DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */,
 			);
 			path = Extensions;
@@ -420,7 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB422DA2BF6E5C3005CAE27 /* NrrdRaw+Extensions.swift in Sources */,
+				DAB422E82BFDC86D005CAE27 /* int3+Extensions.swift in Sources */,
 				DAB422742BF1D572005CAE27 /* Logger.swift in Sources */,
 				DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */,
 				DAB422702BF1D572005CAE27 /* NrrdRaw.swift in Sources */,
@@ -436,14 +445,18 @@
 				DA8EEA292BEA245100B20493 /* AppDelegate.swift in Sources */,
 				DAB422EA2BFEBCF4005CAE27 /* String+Extensions.swift in Sources */,
 				DAB422772BF1D578005CAE27 /* NrrdUtil.swift in Sources */,
+				DAB422E62BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift in Sources */,
 				DAB4226F2BF1D572005CAE27 /* Errors.swift in Sources */,
 				DA8EEA2B2BEA245100B20493 /* SceneDelegate.swift in Sources */,
+				DAB422E22BFDB4F6005CAE27 /* NrrdHeader+Extensions.swift in Sources */,
 				DA7C25AD2BEB06BC008DCFDC /* Study.swift in Sources */,
 				DAB422712BF1D572005CAE27 /* NrrdHeader.swift in Sources */,
 				DA7C25D32BEDA9FE008DCFDC /* UITableViewCell+identifier.swift in Sources */,
 				DA7C25BA2BEB3850008DCFDC /* MainViewModel.swift in Sources */,
+				DACE90782C002D4C00854AAB /* WWL.swift in Sources */,
 				DA7C25C22BEC65C1008DCFDC /* StudySection.swift in Sources */,
 				DAB422802BF1D793005CAE27 /* String.swift in Sources */,
+				DAB422E42BFDC6F1005CAE27 /* UIImage+init.swift in Sources */,
 				DA7C25C62BEC8F11008DCFDC /* SeriesTableViewCell.swift in Sources */,
 				DA7C25AF2BEB087E008DCFDC /* Series.swift in Sources */,
 			);

@@ -24,31 +24,59 @@ final class StudySection {
 
 final class SeriesInfo {
     let series: Series
-    var images: [UIImage]
+    private(set) var nrrdRaw: NrrdRaw? {
+        didSet {
+            AnatomicalPlane.allCases.forEach {
+                self.currentWwls[$0] = WWL(w: nrrdRaw!.header.ww,
+                                           l: nrrdRaw!.header.wl)
+            }
+        }
+    }
+    private(set) var imageDictionary: [AnatomicalPlane: NSCache<NSString, NSArray>] = [:]
+    var currentPlane: AnatomicalPlane = .axial
+    var currentWwls: [AnatomicalPlane: WWL] = [:]
     
-    init(series: Series,
-         images: [UIImage] = []) {
+    init(series: Series) {
         self.series = series
-        self.images = images
+        
+        AnatomicalPlane.allCases.forEach {
+            self.imageDictionary[$0] = NSCache<NSString, NSArray>()
+        }
     }
     
-    func fetchDicomImage() async throws {
+    func loadNrrdData() async throws {
         guard let originUrl = URL(string: "\(AppConstants.baseUrl)/\(APIResource.dicom)/\(series.volumeFilePath)") else {
             throw DicomError.wrongFilePath
         }
         
-        let file = try self.getFileUrl(of: series)
-
+        let file = try self.getFileUrl(of: self.series)
+        
         guard FileManager.default.fileExists(atPath: file.path()) else {
-            let nrrdData = try await NrrdRaw.loadAsync(originUrl)
-            try setNrrdCache(of: originUrl, to: file)
-            self.images = try nrrdData.convertNrrdToImage()
-         
+            self.nrrdRaw = try await NrrdRaw.loadAsync(originUrl)
+            try self.setNrrdCache(of: originUrl, to: file)
             return
         }
         
-        let data = try Data(contentsOf: file)
-        self.images = try await NrrdRaw.loadAsync(file).convertNrrdToImage()
+        self.nrrdRaw = try await NrrdRaw.loadAsync(file)
+    }
+  
+    func fetchDicomImage(plane: AnatomicalPlane,
+                         wwl: WWL) async {
+        // Check cache
+        guard self.imageDictionary[plane]?.object(forKey: NSString(string: wwl.description)) == nil,
+              let nrrdData = self.nrrdRaw else { return }
+        
+        do {
+            let images = try nrrdData.convertToImages(plane: plane, wwl: wwl)
+            
+            self.imageDictionary[plane]?
+                .setObject(images as NSArray,
+                           forKey: NSString(string: wwl.description))
+        }
+        catch {
+            Logger().error("Error -- \(error)")
+        }
+        
     }
     
     /// Series 저장할 local file url 반환.
