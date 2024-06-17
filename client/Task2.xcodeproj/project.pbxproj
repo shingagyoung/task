@@ -44,8 +44,8 @@
 		DAB422E42BFDC6F1005CAE27 /* UIImage+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E32BFDC6F1005CAE27 /* UIImage+init.swift */; };
 		DAB422E62BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E52BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift */; };
 		DAB422E82BFDC86D005CAE27 /* int3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E72BFDC86D005CAE27 /* int3+Extensions.swift */; };
-		DACE90782C002D4C00854AAB /* WWL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE90772C002D4C00854AAB /* WWL.swift */; };
 		DAB422EA2BFEBCF4005CAE27 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */; };
+		DACE90782C002D4C00854AAB /* WWL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE90772C002D4C00854AAB /* WWL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,8 +106,8 @@
 		DAB422E32BFDC6F1005CAE27 /* UIImage+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+init.swift"; sourceTree = "<group>"; };
 		DAB422E52BFDC77E005CAE27 /* NrrdRaw+imageConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NrrdRaw+imageConversion.swift"; sourceTree = "<group>"; };
 		DAB422E72BFDC86D005CAE27 /* int3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "int3+Extensions.swift"; sourceTree = "<group>"; };
-		DACE90772C002D4C00854AAB /* WWL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWL.swift; sourceTree = "<group>"; };
 		DAB422E92BFEBCF4005CAE27 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		DACE90772C002D4C00854AAB /* WWL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,7 +431,6 @@
 			files = (
 				DAB422E82BFDC86D005CAE27 /* int3+Extensions.swift in Sources */,
 				DAB422742BF1D572005CAE27 /* Logger.swift in Sources */,
-				DAB422E02BFD7833005CAE27 /* UIImage+Extensions.swift in Sources */,
 				DAB422702BF1D572005CAE27 /* NrrdRaw.swift in Sources */,
 				DAB422DD2BF7412B005CAE27 /* AppLogger.swift in Sources */,
 				DA7C25C02BEB6680008DCFDC /* DicomTableViewCell.swift in Sources */,
